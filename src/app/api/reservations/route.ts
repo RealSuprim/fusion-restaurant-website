@@ -18,20 +18,33 @@ const OWNER_PHONE = '+442045684224';
 
 // Email configuration (using Gmail SMTP)
 const createEmailTransporter = () => {
+  const gmailUser = process.env.GMAIL_USER;
+  const gmailPassword = process.env.GMAIL_APP_PASSWORD;
+  
+  if (!gmailUser || !gmailPassword) {
+    return null;
+  }
+  
   return nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_APP_PASSWORD,
+      user: gmailUser,
+      pass: gmailPassword,
     },
   });
 };
 
-// Twilio configuration
-const twilioClient = twilio(
-  process.env.TWILIO_ACCOUNT_SID,
-  process.env.TWILIO_AUTH_TOKEN
-);
+// Twilio configuration - only initialize if credentials are available
+const createTwilioClient = () => {
+  const accountSid = process.env.TWILIO_ACCOUNT_SID;
+  const authToken = process.env.TWILIO_AUTH_TOKEN;
+  
+  if (!accountSid || !authToken || !accountSid.startsWith('AC')) {
+    return null;
+  }
+  
+  return twilio(accountSid, authToken);
+};
 
 export async function POST(request: NextRequest) {
   try {
@@ -50,42 +63,52 @@ export async function POST(request: NextRequest) {
     try {
       const transporter = createEmailTransporter();
       
-      const emailContent = `
-        New Table Reservation Request
-        
-        Customer Details:
-        Name: ${reservationData.name}
-        Email: ${reservationData.email}
-        Phone: ${reservationData.phone}
-        
-        Reservation Details:
-        Date: ${reservationData.date}
-        Time: ${reservationData.time}
-        Number of Guests: ${reservationData.guests}
-        ${reservationData.specialRequests ? `Special Requests: ${reservationData.specialRequests}` : ''}
-        
-        Please contact the customer to confirm the reservation.
-      `;
+      if (transporter) {
+        const emailContent = `
+          New Table Reservation Request
+          
+          Customer Details:
+          Name: ${reservationData.name}
+          Email: ${reservationData.email}
+          Phone: ${reservationData.phone}
+          
+          Reservation Details:
+          Date: ${reservationData.date}
+          Time: ${reservationData.time}
+          Number of Guests: ${reservationData.guests}
+          ${reservationData.specialRequests ? `Special Requests: ${reservationData.specialRequests}` : ''}
+          
+          Please contact the customer to confirm the reservation.
+        `;
 
-      await transporter.sendMail({
-        from: process.env.GMAIL_USER,
-        to: OWNER_EMAIL,
-        subject: `New Reservation Request - ${reservationData.name}`,
-        text: emailContent,
-      });
+        await transporter.sendMail({
+          from: process.env.GMAIL_USER,
+          to: OWNER_EMAIL,
+          subject: `New Reservation Request - ${reservationData.name}`,
+          text: emailContent,
+        });
+      } else {
+        console.log('Email notification skipped - Gmail credentials not configured');
+      }
     } catch (emailError) {
       console.error('Email notification failed:', emailError);
     }
 
     // Send SMS notification
     try {
-      const smsContent = `New reservation: ${reservationData.name} for ${reservationData.guests} guests on ${reservationData.date} at ${reservationData.time}. Contact: ${reservationData.phone}`;
+      const twilioClient = createTwilioClient();
       
-      await twilioClient.messages.create({
-        body: smsContent,
-        from: process.env.TWILIO_PHONE_NUMBER,
-        to: OWNER_PHONE,
-      });
+      if (twilioClient && process.env.TWILIO_PHONE_NUMBER) {
+        const smsContent = `New reservation: ${reservationData.name} for ${reservationData.guests} guests on ${reservationData.date} at ${reservationData.time}. Contact: ${reservationData.phone}`;
+        
+        await twilioClient.messages.create({
+          body: smsContent,
+          from: process.env.TWILIO_PHONE_NUMBER,
+          to: OWNER_PHONE,
+        });
+      } else {
+        console.log('SMS notification skipped - Twilio credentials not configured');
+      }
     } catch (smsError) {
       console.error('SMS notification failed:', smsError);
     }
