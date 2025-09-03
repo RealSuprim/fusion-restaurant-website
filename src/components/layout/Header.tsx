@@ -9,6 +9,7 @@ import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuL
 import { Menu, Phone, MapPin } from 'lucide-react';
 import { NAVIGATION_ITEMS, RESTAURANT_INFO } from '@/lib/constants';
 import { ThemeToggle } from './ThemeToggle';
+import { formatTime } from '@/lib/utils';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,7 +30,7 @@ export default function Header() {
             </div>
           </div>
           <div className="text-sm">
-            Open: Mon-Thu 5PM-11PM | Fri-Sat 12PM-11:30PM | Sun 12PM-10:30PM
+            Open: Mon-Thu {formatTime(RESTAURANT_INFO.openingHours.monday.open)}-{formatTime(RESTAURANT_INFO.openingHours.monday.close)} | Fri {formatTime(RESTAURANT_INFO.openingHours.friday.open)}-{formatTime(RESTAURANT_INFO.openingHours.friday.close)} | Sat {formatTime(RESTAURANT_INFO.openingHours.saturday.open)}-{formatTime(RESTAURANT_INFO.openingHours.saturday.close)} | Sun {formatTime(RESTAURANT_INFO.openingHours.sunday.open)}-{formatTime(RESTAURANT_INFO.openingHours.sunday.close)}
           </div>
         </div>
       </div>

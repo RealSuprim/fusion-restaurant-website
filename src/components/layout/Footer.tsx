@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { MapPin, Phone, Mail, Clock, Facebook, Instagram, Twitter } from 'lucide-react';
 import { RESTAURANT_INFO, NAVIGATION_ITEMS } from '@/lib/constants';
+import { formatTime } from '@/lib/utils';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -114,22 +115,34 @@ export default function Footer() {
               <span>Opening Hours</span>
             </h3>
             <div className="space-y-2 text-sm">
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Monday - Thursday</span>
-                <span className="font-medium">5:00 PM - 11:00 PM</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Friday</span>
-                <span className="font-medium">5:00 PM - 11:30 PM</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Saturday</span>
-                <span className="font-medium">12:00 PM - 11:30 PM</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Sunday</span>
-                <span className="font-medium">12:00 PM - 10:30 PM</span>
-              </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Monday</span>
+                  <span className="font-medium">{formatTime(RESTAURANT_INFO.openingHours.monday.open)} - {formatTime(RESTAURANT_INFO.openingHours.monday.close)}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Tuesday</span>
+                  <span className="font-medium">{formatTime(RESTAURANT_INFO.openingHours.tuesday.open)} - {formatTime(RESTAURANT_INFO.openingHours.tuesday.close)}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Wednesday</span>
+                  <span className="font-medium">{formatTime(RESTAURANT_INFO.openingHours.wednesday.open)} - {formatTime(RESTAURANT_INFO.openingHours.wednesday.close)}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Thursday</span>
+                  <span className="font-medium">{formatTime(RESTAURANT_INFO.openingHours.thursday.open)} - {formatTime(RESTAURANT_INFO.openingHours.thursday.close)}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Friday</span>
+                  <span className="font-medium">{formatTime(RESTAURANT_INFO.openingHours.friday.open)} - {formatTime(RESTAURANT_INFO.openingHours.friday.close)}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Saturday</span>
+                  <span className="font-medium">{formatTime(RESTAURANT_INFO.openingHours.saturday.open)} - {formatTime(RESTAURANT_INFO.openingHours.saturday.close)}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Sunday</span>
+                  <span className="font-medium">{formatTime(RESTAURANT_INFO.openingHours.sunday.open)} - {formatTime(RESTAURANT_INFO.openingHours.sunday.close)}</span>
+                </div>
             </div>
             <div className="pt-2">
               <Button className="restaurant-primary w-full" asChild>

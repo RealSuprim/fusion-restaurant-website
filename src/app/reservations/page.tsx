@@ -3,6 +3,7 @@ import { RESTAURANT_INFO } from '@/lib/constants';
 import ReservationForm from '@/components/features/ReservationForm';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Clock, MapPin, Phone, Users } from 'lucide-react';
+import { formatTime } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: `Reservations - ${RESTAURANT_INFO.name}`,
@@ -60,20 +61,32 @@ export default function ReservationsPage() {
                 <CardContent>
                   <div className="space-y-2">
                     <div className="flex justify-between">
-                      <span>Monday - Thursday:</span>
-                      <span>5:00 PM - 11:00 PM</span>
+                      <span>Monday:</span>
+                      <span>{formatTime(RESTAURANT_INFO.openingHours.monday.open)} - {formatTime(RESTAURANT_INFO.openingHours.monday.close)}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Tuesday:</span>
+                      <span>{formatTime(RESTAURANT_INFO.openingHours.tuesday.open)} - {formatTime(RESTAURANT_INFO.openingHours.tuesday.close)}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Wednesday:</span>
+                      <span>{formatTime(RESTAURANT_INFO.openingHours.wednesday.open)} - {formatTime(RESTAURANT_INFO.openingHours.wednesday.close)}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Thursday:</span>
+                      <span>{formatTime(RESTAURANT_INFO.openingHours.thursday.open)} - {formatTime(RESTAURANT_INFO.openingHours.thursday.close)}</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Friday:</span>
-                      <span>5:00 PM - 11:30 PM</span>
+                      <span>{formatTime(RESTAURANT_INFO.openingHours.friday.open)} - {formatTime(RESTAURANT_INFO.openingHours.friday.close)}</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Saturday:</span>
-                      <span>12:00 PM - 11:30 PM</span>
+                      <span>{formatTime(RESTAURANT_INFO.openingHours.saturday.open)} - {formatTime(RESTAURANT_INFO.openingHours.saturday.close)}</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Sunday:</span>
-                      <span>12:00 PM - 10:30 PM</span>
+                      <span>{formatTime(RESTAURANT_INFO.openingHours.sunday.open)} - {formatTime(RESTAURANT_INFO.openingHours.sunday.close)}</span>
                     </div>
                   </div>
                 </CardContent>

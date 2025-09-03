@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { MapPin, Phone, Mail, Clock, Navigation, Car, Train } from 'lucide-react';
 import { RESTAURANT_INFO } from '@/lib/constants';
-import GoogleMap from '@/components/features/GoogleMap';
+import { formatTime } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: `Contact Us - ${RESTAURANT_INFO.name}`,
@@ -32,7 +32,7 @@ export default function ContactPage() {
       const hours = RESTAURANT_INFO.openingHours[day.key as keyof typeof RESTAURANT_INFO.openingHours];
       return {
         day: day.name,
-        hours: `${hours.open} - ${hours.close}`
+        hours: `${formatTime(hours.open)} - ${formatTime(hours.close)}`
       };
     });
   };
@@ -125,13 +125,18 @@ export default function ContactPage() {
 
             {/* Map */}
             <div className="space-y-6">
-              <GoogleMap
-                lat={RESTAURANT_INFO.coordinates.lat}
-                lng={RESTAURANT_INFO.coordinates.lng}
-                zoom={16}
-                height="400px"
-                markerTitle={RESTAURANT_INFO.name}
-              />
+              <div className="w-full h-[400px] rounded-lg overflow-hidden">
+                <iframe 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2485.964845763219!2d0.0029241767457712483!3d51.4588018718023!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d8a91281a82a95%3A0xc83149a45b2c37b6!2sThe%20Fusion%20-%20Nepalese%20and%20Indian%20Restaurant!5e0!3m2!1sen!2suk!4v1756892818684!5m2!1sen!2suk"
+                  width="100%" 
+                  height="100%" 
+                  style={{border: 0}} 
+                  allowFullScreen 
+                  loading="lazy" 
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="The Fusion Restaurant Location"
+                />
+              </div>
               
               <div className="flex gap-4">
                 <Button asChild className="flex-1">
