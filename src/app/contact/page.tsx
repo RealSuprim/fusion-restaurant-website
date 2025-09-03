@@ -225,7 +225,7 @@ export default function ContactPage() {
               Book a table or place an order for collection. We look forward to serving you!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="restaurant-primary" asChild>
+              <Button size="lg" className="restaurant-primary bg-primary text-primary-foreground hover:bg-primary/90" asChild>
                 <a href="/reservations">
                   Book a Table
                 </a>
