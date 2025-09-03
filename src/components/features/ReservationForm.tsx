@@ -78,8 +78,12 @@ export default function ReservationForm({ onSubmit }: ReservationFormProps) {
 
     if (!formData.phone?.trim()) {
       newErrors.phone = 'Phone number is required';
-    } else if (!/^[\+]?[1-9][\d]{0,15}$/.test(formData.phone.replace(/\s/g, ''))) {
-      newErrors.phone = 'Please enter a valid phone number';
+    } else {
+      const cleanPhone = formData.phone.replace(/\s/g, '');
+      // Accept UK mobile numbers (07xxxxxxxxx) or international format (+44xxxxxxxxx)
+      if (!/^(07\d{9}|\+44\d{10,11}|\+[1-9]\d{1,14})$/.test(cleanPhone)) {
+        newErrors.phone = 'Please enter a valid UK phone number (e.g., 07512473844)';
+      }
     }
 
     if (!formData.date) {
@@ -238,7 +242,7 @@ export default function ReservationForm({ onSubmit }: ReservationFormProps) {
               value={formData.phone || ''}
               onChange={(e) => handleInputChange('phone', e.target.value)}
               className={errors.phone ? 'border-red-500' : ''}
-              placeholder="Enter your phone number"
+              placeholder="e.g., 07512473844"
             />
             {errors.phone && (
               <p className="text-sm text-red-500 flex items-center gap-1">
