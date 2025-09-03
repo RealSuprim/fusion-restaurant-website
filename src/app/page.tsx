@@ -24,7 +24,7 @@ export default function Home() {
             <Button size="lg" className="bg-white text-primary hover:bg-white/90" asChild>
               <Link href="/menu">View Our Menu</Link>
             </Button>
-            <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white" asChild>
+            <Button size="lg" className="bg-white text-primary hover:bg-white/90" asChild>
               <Link href="/reservations">Book a Table</Link>
             </Button>
           </div>

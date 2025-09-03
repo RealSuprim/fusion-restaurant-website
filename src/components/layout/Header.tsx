@@ -44,7 +44,7 @@ export default function Header() {
               alt={`${RESTAURANT_INFO.name} Logo`}
               width={150}
               height={150}
-              className="w-[150px]"
+              className="w-[150px] dark:invert"
               priority
             />
           </Link>
@@ -95,7 +95,7 @@ export default function Header() {
                     alt={`${RESTAURANT_INFO.name} Logo`}
                     width={60}
                     height={60}
-                    className="w-15 h-15"
+                    className="w-15 h-15 dark:invert"
                   />
                 </div>
 

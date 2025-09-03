@@ -10,13 +10,13 @@ export const RESTAURANT_INFO: RestaurantInfo = {
     lng: 0.005527840859441247
   },
   openingHours: {
-    monday: { open: '12:00', close: '22:00' },
-    tuesday: { open: '12:00', close: '22:00' },
-    wednesday: { open: '12:00', close: '22:00' },
-    thursday: { open: '12:00', close: '22:00' },
+    monday: { open: '12:00', close: '23:00' },
+    tuesday: { open: '12:00', close: '23:00' },
+    wednesday: { open: '12:00', close: '23:00' },
+    thursday: { open: '12:00', close: '23:00' },
     friday: { open: '12:00', close: '23:00' },
     saturday: { open: '12:00', close: '23:00' },
-    sunday: { open: '12:00', close: '21:00' }
+    sunday: { open: '12:00', close: '23:00' }
   }
 };
 
