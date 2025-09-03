@@ -230,12 +230,12 @@ export default function ContactPage() {
                   Book a Table
                 </a>
               </Button>
-              <Button size="lg" variant="outline" asChild>
+              <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white" asChild>
                 <a href="/order">
                   Order Online
                 </a>
               </Button>
-              <Button size="lg" variant="outline" asChild>
+              <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white" asChild>
                 <a href={`tel:${RESTAURANT_INFO.phone}`}>
                   <Phone className="h-4 w-4 mr-2" />
                   Call Now

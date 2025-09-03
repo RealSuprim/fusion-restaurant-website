@@ -44,7 +44,7 @@ export default function Header() {
               alt={`${RESTAURANT_INFO.name} Logo`}
               width={150}
               height={150}
-              className="w-20 h-20"
+              className="w-[150px]"
               priority
             />
           </Link>

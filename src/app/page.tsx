@@ -162,7 +162,7 @@ export default function Home() {
             <Button size="lg" className="bg-white text-primary hover:bg-white/90" asChild>
               <Link href="/order">Order Online</Link>
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary" asChild>
+            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary bg-transparent" asChild>
               <Link href="/reservations">Make Reservation</Link>
             </Button>
           </div>
