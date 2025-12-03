@@ -4,7 +4,7 @@ import { useState, useMemo } from 'react';
 import { MenuItem, OrderItem, Order } from '@/lib/types';
 import { SAMPLE_MENU } from '@/lib/constants';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
@@ -181,9 +181,12 @@ export default function OrderingSystem() {
               <CheckCircle className="h-8 w-8 text-green-600 dark:text-green-400" />
             </div>
             <CardTitle className="text-2xl font-serif font-bold text-green-700 dark:text-green-400">Order Confirmed!</CardTitle>
-            <CardDescription className="text-lg">
-              Thank you for your order. You will receive a confirmation email shortly.
-            </CardDescription>
+            <div className="text-lg text-muted-foreground mt-2 space-y-2">
+              <p>Thank you for your order. You will receive a confirmation email shortly.</p>
+              <p className="font-medium text-foreground/90">
+                You can pay by card or cash to the driver on delivery, or at the counter if collecting.
+              </p>
+            </div>
           </CardHeader>
           <CardContent className="text-center space-y-6 pt-4">
             <div className="bg-background p-6 rounded-lg border shadow-sm inline-block min-w-[300px]">
