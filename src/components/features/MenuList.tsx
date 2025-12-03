@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/select"
 import { Star, Leaf, Wheat, Filter } from 'lucide-react';
 import { MenuItem, MenuCategory } from '@/lib/types';
-import { cn } from '@/lib/utils';
 
 interface MenuListProps {
   categories: MenuCategory[];

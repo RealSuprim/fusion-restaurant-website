@@ -1,6 +1,4 @@
 import { Metadata } from 'next';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { MapPin, Phone, Mail, Clock, Navigation, Car, Train } from 'lucide-react';
 import { RESTAURANT_INFO } from '@/lib/constants';
 import { formatTime } from '@/lib/utils';
@@ -58,7 +56,7 @@ export default function ContactPage() {
             Contact Us
           </h1>
           <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto font-light animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            We'd love to hear from you
+            We&apos;d love to hear from you
           </p>
         </div>
       </section>

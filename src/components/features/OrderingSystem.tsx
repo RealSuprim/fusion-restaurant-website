@@ -4,14 +4,13 @@ import { useState, useMemo } from 'react';
 import { MenuItem, OrderItem, Order } from '@/lib/types';
 import { SAMPLE_MENU } from '@/lib/constants';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ShoppingCart, Plus, Minus, Trash2, Utensils, Search, ArrowRight, CheckCircle } from 'lucide-react';
 import MenuItemCard from '@/components/features/MenuItemCard';
 
@@ -312,7 +311,7 @@ export default function OrderingSystem() {
                       </div>
                       {item.specialInstructions && (
                         <p className="text-xs text-muted-foreground mb-2 italic bg-muted/30 p-1.5 rounded">
-                          "{item.specialInstructions}"
+                          &quot;{item.specialInstructions}&quot;
                         </p>
                       )}
                       <div className="flex justify-between items-center mt-2">

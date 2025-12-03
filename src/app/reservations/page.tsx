@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import { RESTAURANT_INFO } from '@/lib/constants';
 import ReservationForm from '@/components/features/ReservationForm';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Clock, MapPin, Phone, Users } from 'lucide-react';
 import { formatTime } from '@/lib/utils';
 

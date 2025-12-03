@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ShoppingCart, Clock, MapPin, Phone, Truck, Utensils, ShoppingBag } from 'lucide-react';
+import { Clock, MapPin, Phone, Truck, Utensils, ShoppingBag } from 'lucide-react';
 import OrderingSystem from '@/components/features/OrderingSystem';
 import { RESTAURANT_INFO } from '@/lib/constants';
 import { formatTime } from '@/lib/utils';
