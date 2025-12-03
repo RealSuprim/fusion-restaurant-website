@@ -9,7 +9,9 @@ export interface MenuItem {
   isVegetarian?: boolean;
   isVegan?: boolean;
   isGlutenFree?: boolean;
+  containsNuts?: boolean;
   spiceLevel?: 'mild' | 'medium' | 'hot' | 'very-hot';
+  options?: string[];
 }
 
 export interface MenuCategory {
@@ -35,6 +37,7 @@ export interface OrderItem {
   menuItem: MenuItem;
   quantity: number;
   specialInstructions?: string;
+  selectedOption?: string;
 }
 
 export interface Order {

@@ -1,4 +1,4 @@
-import { RestaurantInfo } from './types';
+import { RestaurantInfo, MenuCategory } from './types';
 
 export const RESTAURANT_INFO: RestaurantInfo = {
   name: 'The Fusion',
@@ -14,1102 +14,827 @@ export const RESTAURANT_INFO: RestaurantInfo = {
     tuesday: { open: '17:00', close: '23:00' },
     wednesday: { open: '17:00', close: '23:00' },
     thursday: { open: '17:00', close: '23:00' },
-    friday: { open: '17:00', close: '23:30' },
-    saturday: { open: '12:00', close: '23:30' },
-    sunday: { open: '12:00', close: '22:30' }
+    friday: { open: '17:00', close: '23:00' },
+    saturday: { open: '12:00', close: '23:00' },
+    sunday: { open: '12:00', close: '23:00' }
   }
 };
 
 // Complete menu data from menu.md
-export const SAMPLE_MENU = {
+export const SAMPLE_MENU: { categories: MenuCategory[] } = {
   categories: [
     {
       id: 'appetizers',
-      name: 'Appetizers',
-      description: 'Traditional appetizers to begin your culinary journey',
+      name: "Appetizers",
+      description: "Traditional appetizers to begin your culinary journey",
       items: [
         {
+          id: 'steamed-momo-lambchickenveg-dse',
+          name: "Steamed Momo (Lamb/Chicken/Veg) (D/Se)",
+          description: "Steamed dumplings served with tomato chutney.",
+          price: 6.5,
+          category: 'appetizers',
+          options: ['Lamb', 'Chicken', 'Veg'],
+        },
+        {
+          id: 'chilli-momo-lambchickenveg-dse',
+          name: "Chilli MOMO (Lamb/Chicken/Veg) (D/Se)",
+          description: "Stir-fried with peppers, fresh chilli, and aromatic spices.",
+          price: 7.5,
+          category: 'appetizers',
+          options: ['Lamb', 'Chicken', 'Veg'],
+        },
+        {
+          id: 'tandoori-momo-dse',
+          name: "Tandoori MOMO (D/Se)",
+          description: "Grilled dumplings filled with spiced minced chicken, served with tomato chutney.",
+          price: 7.5,
+          category: 'appetizers',
+        },
+        {
+          id: 'sukuti-s',
+          name: "Sukuti (S)",
+          description: "Smoked and dried strips of lamb, sautéed with onion, garlic, ginger, and Nepali spices.",
+          price: 8.5,
+          category: 'appetizers',
+        },
+        {
+          id: 'bhutan-s',
+          name: "Bhutan (S)",
+          description: "A traditional Nepali delicacy of goat tripe, stir-fried with onion, tomato, chilli, and spices.",
+          price: 7.5,
+          category: 'appetizers',
+        },
+        {
+          id: 'chatpatey-g',
+          name: "Chatpatey (G)",
+          description: "Mix puffed rice, chopped onion, tomatoes, potato, chickpeas, and bombay mix, served cold.",
+          price: 5.5,
+          category: 'appetizers',
+        },
+        {
           id: 'onion-bhaji',
-          name: 'Onion Bhaji',
-          description: 'Crispy fried onion fritters',
-          price: 5.00,
+          name: "Onion Bhaji",
+          description: "Crispy fried onion fritters.",
+          price: 5.5,
           category: 'appetizers',
           isVegetarian: true,
-          spiceLevel: 'mild' as const
         },
         {
-          id: 'samosa-veg',
-          name: 'Vegetable Samosa',
-          description: 'Crispy pastry with vegetable filling',
-          price: 5.00,
+          id: 'samosa-vegetablelambchicken-gd',
+          name: "Samosa (Vegetable/Lamb/Chicken) (G/D)",
+          description: "Crispy pastry with vegetable filling or minced lamb.",
+          price: 5.5,
           category: 'appetizers',
           isVegetarian: true,
-          spiceLevel: 'mild' as const
+          options: ['Vegetable', 'Lamb', 'Chicken'],
         },
         {
-          id: 'samosa-lamb',
-          name: 'Lamb Samosa',
-          description: 'Crispy pastry with minced lamb',
-          price: 5.00,
+          id: 'samosa-chaat-gd',
+          name: "Samosa Chaat (G/D)",
+          description: "Potato cakes with peas, yogurt, mint, and tamarind chutney.",
+          price: 5.5,
           category: 'appetizers',
-          spiceLevel: 'medium' as const
         },
         {
-          id: 'samosa-chaat',
-          name: 'Samosa Chaat',
-          description: 'Potato cakes with peas, yogurt, mint, and tamarind chutney',
-          price: 5.00,
+          id: 'pani-puri-g',
+          name: "Pani Puri (G)",
+          description: "Crispy puri filled with potatoes, onion, and tangy spiced water, served cold.",
+          price: 5.5,
           category: 'appetizers',
-          isVegetarian: true,
-          spiceLevel: 'mild' as const
         },
         {
-          id: 'pani-puri',
-          name: 'Pani Puri',
-          description: 'Crispy puri filled with potatoes, onion, and tangy spiced water',
-          price: 5.00,
+          id: 'achari-paneer-tikka-d',
+          name: "Achari Paneer Tikka (D)",
+          description: "Char-grilled paneer slices marinated in spices.",
+          price: 6.5,
           category: 'appetizers',
           isVegetarian: true,
-          spiceLevel: 'medium' as const
         },
         {
-          id: 'achari-paneer-tikka',
-          name: 'Achari Paneer Tikka',
-          description: 'Char-grilled paneer slices marinated in spices',
-          price: 6.00,
+          id: 'chilli-paneermushroomchicken-d',
+          name: "Chilli (Paneer/Mushroom/Chicken) (D)",
+          description: "Stir-fried with peppers, fresh chilli, and aromatic spices.",
+          price: 6.5,
           category: 'appetizers',
           isVegetarian: true,
-          spiceLevel: 'medium' as const
+          options: ['Paneer', 'Mushroom', 'Chicken'],
         },
         {
-          id: 'chilli-paneer',
-          name: 'Chilli Paneer',
-          description: 'Stir-fried paneer with peppers, fresh chilli, and aromatic spices',
-          price: 6.00,
+          id: 'chicken-tikka-d',
+          name: "Chicken Tikka (D)",
+          description: "Chargrilled chicken breast cubes marinated in yogurt and herbs.",
+          price: 5.5,
           category: 'appetizers',
-          isVegetarian: true,
-          spiceLevel: 'hot' as const
         },
         {
-          id: 'chilli-mushroom',
-          name: 'Chilli Mushroom',
-          description: 'Stir-fried mushrooms with peppers, fresh chilli, and aromatic spices',
-          price: 6.00,
+          id: 'lamb-shish-kebab-d',
+          name: "Lamb Shish Kebab (D)",
+          description: "Minced lamb kebab cooked in the tandoor.",
+          price: 5.5,
           category: 'appetizers',
-          isVegetarian: true,
-          spiceLevel: 'hot' as const
         },
         {
-          id: 'chilli-chicken',
-          name: 'Chilli Chicken',
-          description: 'Stir-fried chicken with peppers, fresh chilli, and aromatic spices',
-          price: 6.00,
+          id: 'lamb-chops-d',
+          name: "Lamb Chops (D)",
+          description: "Juicy lamb chops marinated with traditional spices, grilled to perfection.",
+          price: 9.5,
           category: 'appetizers',
-          spiceLevel: 'hot' as const
         },
         {
-          id: 'chicken-tikka-starter',
-          name: 'Chicken Tikka',
-          description: 'Chargrilled chicken breast cubes marinated in yogurt and herbs',
-          price: 5.00,
+          id: 'ajwani-salmon-d',
+          name: "Ajwani Salmon (D)",
+          description: "Salmon fillet marinated with carom seeds and fenugreek, grilled in clay oven.",
+          price: 9.5,
           category: 'appetizers',
-          spiceLevel: 'medium' as const
         },
         {
-          id: 'lamb-shish-kebab',
-          name: 'Lamb Shish Kebab',
-          description: 'Minced lamb kebab cooked in the tandoor',
-          price: 5.00,
+          id: 'prawn-puri-cd',
+          name: "Prawn Puri (C/D)",
+          description: "Spiced prawns served on deep-fried bread.",
+          price: 7.5,
           category: 'appetizers',
-          spiceLevel: 'medium' as const
         },
         {
-          id: 'lamb-chops-starter',
-          name: 'Lamb Chops',
-          description: 'Juicy lamb chops marinated with traditional spices, grilled to perfection',
-          price: 9.00,
+          id: 'papadum',
+          name: "Papadum",
+          description: "Served with mint chutney.",
+          price: 1.0,
           category: 'appetizers',
-          spiceLevel: 'medium' as const
         },
         {
-          id: 'ajwani-salmon',
-          name: 'Ajwani Salmon',
-          description: 'Salmon fillet marinated with carom seeds and fenugreek, grilled in clay oven',
-          price: 9.00,
+          id: 'pickle-or-chutney',
+          name: "Pickle or Chutney",
+          description: "Mint Chutney (D), Mango Chutney, Mixed Pickle or Onion Salad",
+          price: 1.0,
           category: 'appetizers',
-          spiceLevel: 'medium' as const
         },
-        {
-          id: 'prawn-puri',
-          name: 'Prawn Puri',
-          description: 'Spiced prawns served on deep-fried bread',
-          price: 7.00,
-          category: 'appetizers',
-          spiceLevel: 'medium' as const
-        },
-        {
-          id: 'steamed-momo-lamb',
-          name: 'Steamed MOMO (Lamb)',
-          description: 'Steamed dumplings filled with lamb, served with tomato chutney',
-          price: 6.00,
-          category: 'appetizers',
-          spiceLevel: 'medium' as const
-        },
-        {
-          id: 'steamed-momo-chicken',
-          name: 'Steamed MOMO (Chicken)',
-          description: 'Steamed dumplings filled with chicken, served with tomato chutney',
-          price: 6.00,
-          category: 'appetizers',
-          spiceLevel: 'medium' as const
-        },
-        {
-          id: 'steamed-momo-veg',
-          name: 'Steamed MOMO (Vegetable)',
-          description: 'Steamed dumplings filled with vegetables, served with tomato chutney',
-          price: 6.00,
-          category: 'appetizers',
-          isVegetarian: true,
-          spiceLevel: 'medium' as const
-        },
-        {
-          id: 'tandoori-lamb-momo',
-          name: 'Tandoori Lamb MOMO',
-          description: 'Grilled dumplings filled with spiced minced lamb, served with tomato chutney',
-          price: 7.00,
-          category: 'appetizers',
-          spiceLevel: 'medium' as const
-        },
-        {
-          id: 'sukuti',
-          name: 'Sukuti',
-          description: 'Smoked and dried strips of lamb, sautéed with onion, garlic, ginger, and Nepali spices',
-          price: 7.00,
-          category: 'appetizers',
-          spiceLevel: 'hot' as const
-        },
-        {
-          id: 'bhutan',
-          name: 'Bhutan',
-          description: 'A traditional Nepali delicacy of goat tripe, stir-fried with onion, tomato, chilli, and spices',
-          price: 7.00,
-          category: 'appetizers',
-          spiceLevel: 'hot' as const
-        }
       ]
     },
     {
       id: 'tandoori-grills',
-      name: 'Tandoori & Grills',
-      description: 'Authentic tandoori dishes and grilled specialties',
+      name: "Tandoori & Grills",
+      description: "Clay oven grilled specialties",
       items: [
         {
-          id: 'chicken-tikka-shaslik',
-          name: 'Chicken Tikka Shaslik',
-          description: 'Tender chicken skewers with peppers, tomato and onions',
-          price: 10.00,
+          id: 'chicken-tikka-main-d',
+          name: "Chicken Tikka Main (D)",
+          description: "Chargrilled chicken breast cubes marinated in yogurt and herbs.",
+          price: 10.5,
           category: 'tandoori-grills',
-          spiceLevel: 'medium' as const
         },
         {
-          id: 'paneer-shaslik',
-          name: 'Paneer Shaslik',
-          description: 'Paneer skewers with peppers, onions, and mild spices',
-          price: 10.00,
+          id: 'chicken-tikka-shaslik-d',
+          name: "Chicken Tikka Shaslik (D)",
+          description: "Tender chicken skewers with peppers, tomato and onions.",
+          price: 10.5,
+          category: 'tandoori-grills',
+        },
+        {
+          id: 'paneer-shaslik-d',
+          name: "Paneer Shaslik (D)",
+          description: "Paneer skewers with peppers, onions, and mild spices.",
+          price: 10.5,
           category: 'tandoori-grills',
           isVegetarian: true,
-          spiceLevel: 'mild' as const
         },
         {
-          id: 'tandoori-chicken',
-          name: 'Tandoori Chicken',
-          description: 'Half chicken marinated with yogurt and authentic spices, grilled in the tandoor',
-          price: 10.00,
+          id: 'tandoori-chicken-d',
+          name: "Tandoori Chicken (D)",
+          description: "Half chicken marinated with yogurt and authentic spices, grilled in the tandoor.",
+          price: 10.5,
           category: 'tandoori-grills',
-          spiceLevel: 'medium' as const
         },
         {
-          id: 'mixed-grill-platter',
-          name: 'Mixed Grill Platter',
-          description: 'A mix of lamb kebab, chicken tikka, tandoori chicken, and lamb chop',
-          price: 12.00,
+          id: 'mixed-grill-platter-d',
+          name: "Mixed Grill Platter (D)",
+          description: "A mix of lamb kebab, chicken tikka, tandoori chicken, and lamb chop.",
+          price: 12.5,
           category: 'tandoori-grills',
-          spiceLevel: 'medium' as const
         },
         {
-          id: 'lamb-chops-main',
-          name: 'Lamb Chops Main',
-          description: 'Tender lamb chops marinated in Indian spices, served with chutney and salads',
-          price: 14.00,
+          id: 'lamb-chops-main-d',
+          name: "Lamb Chops Main (D)",
+          description: "Tender lamb chops marinated in Indian spices, served with chutney and salads.",
+          price: 14.5,
           category: 'tandoori-grills',
-          spiceLevel: 'medium' as const
         },
         {
-          id: 'salmon-tikka-main',
-          name: 'Salmon Tikka Main',
-          description: 'Chargrilled salmon with fenugreek and carom seeds',
-          price: 14.00,
+          id: 'salmon-tikka-main-d',
+          name: "Salmon Tikka Main (D)",
+          description: "Chargrilled salmon with fenugreek and carom seed",
+          price: 14.5,
           category: 'tandoori-grills',
-          spiceLevel: 'medium' as const
-        }
+        },
       ]
     },
     {
-      id: 'chef-recommendations',
-      name: "Chef's Recommendations",
-      description: 'Signature dishes crafted by our head chef',
+      id: 'chefs-recommendation',
+      name: "Chef'S Recommendation",
+      description: "Specially curated by our chef",
       items: [
         {
-          id: 'himalayan-chicken',
-          name: 'Himalayan Chicken',
-          description: 'Chicken cooked with a rare Himalayan herb "Zimbu"',
-          price: 11.00,
-          category: 'chef-recommendations',
-          spiceLevel: 'medium' as const
+          id: 'himalayan-chicken-dm',
+          name: "Himalayan Chicken (D/M)",
+          description: "Chicken cooked with a rare Himalayan herb \"Zimbu\".",
+          price: 12.5,
+          category: 'chefs-recommendation',
         },
         {
-          id: 'chicken-chilly-dry-fry',
-          name: 'Chicken Chilly Dry Fry',
-          description: 'Crisp chicken stir-fried with peppers, chilli, and soy sauce',
-          price: 11.00,
-          category: 'chef-recommendations',
-          spiceLevel: 'hot' as const
+          id: 'chicken-chilly-dry-fry-s',
+          name: "Chicken Chilly Dry Fry (S)",
+          description: "Crisp chicken stir-fried with peppers, chilli, and soy sauce.",
+          price: 12.5,
+          category: 'chefs-recommendation',
         },
         {
           id: 'lamb-bhutuwa',
-          name: 'Lamb Bhutuwa',
-          description: 'Tender lamb in tomato-onion gravy with fenugreek, garlic and spices',
-          price: 11.00,
-          category: 'chef-recommendations',
-          spiceLevel: 'medium' as const
+          name: "Lamb Bhutuwa",
+          description: "Tender lamb in tomato-onion gravy with fenugreek, garlic and spices.",
+          price: 12.5,
+          category: 'chefs-recommendation',
         },
         {
-          id: 'goan-prawn',
-          name: 'Goan Prawn',
-          description: 'Tiger prawns in coconut-based Goan sauce',
-          price: 12.00,
-          category: 'chef-recommendations',
-          spiceLevel: 'medium' as const
+          id: 'sherpa-lamb',
+          name: "Sherpa Lamb",
+          description: "Tender lamb in tomato-onion gravy with complex roasted spices.",
+          price: 12.5,
+          category: 'chefs-recommendation',
         },
         {
-          id: 'goan-tilapia',
-          name: 'Goan Tilapia',
-          description: 'Tilapia in coconut-based Goan sauce',
-          price: 12.00,
-          category: 'chef-recommendations',
-          spiceLevel: 'medium' as const
+          id: 'goan-prawn-dm',
+          name: "Goan Prawn (D/M)",
+          description: "Tiger prawns in coconut-based Goan sauce.",
+          price: 13.5,
+          category: 'chefs-recommendation',
         },
         {
-          id: 'mix-seafood-curry',
-          name: 'Mix Seafood Curry',
-          description: 'Tiger prawns, salmon, and tilapia in Goan sauce',
-          price: 12.00,
-          category: 'chef-recommendations',
-          spiceLevel: 'medium' as const
+          id: 'goan-tilapia-dm',
+          name: "Goan Tilapia (D/M)",
+          description: "Tilapia in coconut-based Goan sauce.",
+          price: 13.5,
+          category: 'chefs-recommendation',
         },
         {
-          id: 'tawa-prawn',
-          name: 'Tawa Prawn',
-          description: 'Tiger prawns sautéed with tomato, peppers, and spices',
-          price: 12.00,
-          category: 'chef-recommendations',
-          spiceLevel: 'medium' as const
+          id: 'mix-seafood-curry-dmc',
+          name: "Mix Seafood Curry (D/M/C)",
+          description: "Tiger prawns, salmon, and tilapia in Goan sauce.",
+          price: 13.5,
+          category: 'chefs-recommendation',
         },
         {
-          id: 'karahi-paneer',
-          name: 'Karahi Paneer',
-          description: 'Cottage cheese cooked with onion, tomato, and green peppers in a medium-spiced sauce',
-          price: 9.00,
-          category: 'chef-recommendations',
+          id: 'tawa-prawn-c',
+          name: "Tawa Prawn (C)",
+          description: "Tiger prawns sautéed with tomato, peppers, and spices.",
+          price: 13.5,
+          category: 'chefs-recommendation',
+        },
+        {
+          id: 'karahi-paneer-d',
+          name: "Karahi Paneer (D)",
+          description: "Cottage cheese cooked with onion, tomato, and green peppers in a medium-spiced sauce.",
+          price: 9.5,
+          category: 'chefs-recommendation',
           isVegetarian: true,
-          spiceLevel: 'medium' as const
         },
         {
           id: 'saag-chana-main',
-          name: 'Saag Chana Main',
-          description: 'Spinach & chickpeas cooked with garlic and spices',
-          price: 9.00,
-          category: 'chef-recommendations',
-          isVegetarian: true,
-          spiceLevel: 'medium' as const
-        }
+          name: "Saag Chana Main",
+          description: "Spinach & chickpeas cooked with garlic and spices.",
+          price: 9.5,
+          category: 'chefs-recommendation',
+        },
       ]
     },
     {
       id: 'classic-curries',
-      name: 'Classic Curries',
-      description: 'Traditional curries available with your choice of protein',
+      name: "Classic Curries",
+      description: "Traditional curries available with your choice of protein",
       items: [
         {
-          id: 'tikka-masala-veg',
-          name: 'Tikka Masala (Vegetable)',
-          description: 'Mild creamy tomato masala with ground almonds',
-          price: 8.50,
+          id: 'tikka-masala-dn-veg',
+          name: "Tikka Masala (D/N) (Veg)",
+          description: "Mild creamy tomato masala with ground almonds.",
+          price: 8.5,
           category: 'classic-curries',
           isVegetarian: true,
-          spiceLevel: 'mild' as const
         },
         {
-          id: 'tikka-masala-chicken',
-          name: 'Tikka Masala (Chicken)',
-          description: 'Mild creamy tomato masala with ground almonds',
-          price: 10.50,
+          id: 'tikka-masala-dn-chicken',
+          name: "Tikka Masala (D/N) (Chicken)",
+          description: "Mild creamy tomato masala with ground almonds.",
+          price: 10.5,
           category: 'classic-curries',
-          spiceLevel: 'mild' as const
         },
         {
-          id: 'tikka-masala-lamb',
-          name: 'Tikka Masala (Lamb)',
-          description: 'Mild creamy tomato masala with ground almonds',
-          price: 11.00,
+          id: 'tikka-masala-dn-lamb',
+          name: "Tikka Masala (D/N) (Lamb)",
+          description: "Mild creamy tomato masala with ground almonds.",
+          price: 11.5,
           category: 'classic-curries',
-          spiceLevel: 'mild' as const
         },
         {
-          id: 'tikka-masala-prawn',
-          name: 'Tikka Masala (Prawn)',
-          description: 'Mild creamy tomato masala with ground almonds',
-          price: 12.50,
+          id: 'tikka-masala-dn-prawn',
+          name: "Tikka Masala (D/N) (Prawn)",
+          description: "Mild creamy tomato masala with ground almonds.",
+          price: 12.5,
           category: 'classic-curries',
-          spiceLevel: 'mild' as const
         },
         {
-          id: 'korma-veg',
-          name: 'Korma (Vegetable)',
-          description: 'Mild curry with coconut and almonds',
-          price: 8.50,
+          id: 'kormadn-veg',
+          name: "Korma(D/N) (Veg)",
+          description: "Mild curry with coconut and almonds._ Dhansak",
+          price: 8.5,
           category: 'classic-curries',
           isVegetarian: true,
-          spiceLevel: 'mild' as const
         },
         {
-          id: 'korma-chicken',
-          name: 'Korma (Chicken)',
-          description: 'Mild curry with coconut and almonds',
-          price: 10.50,
+          id: 'kormadn-chicken',
+          name: "Korma(D/N) (Chicken)",
+          description: "Mild curry with coconut and almonds._ Dhansak",
+          price: 10.5,
           category: 'classic-curries',
-          spiceLevel: 'mild' as const
         },
         {
-          id: 'korma-lamb',
-          name: 'Korma (Lamb)',
-          description: 'Mild curry with coconut and almonds',
-          price: 11.00,
+          id: 'kormadn-lamb',
+          name: "Korma(D/N) (Lamb)",
+          description: "Mild curry with coconut and almonds._ Dhansak",
+          price: 11.5,
           category: 'classic-curries',
-          spiceLevel: 'mild' as const
         },
         {
-          id: 'korma-prawn',
-          name: 'Korma (Prawn)',
-          description: 'Mild curry with coconut and almonds',
-          price: 12.50,
+          id: 'kormadn-prawn',
+          name: "Korma(D/N) (Prawn)",
+          description: "Mild curry with coconut and almonds._ Dhansak",
+          price: 12.5,
           category: 'classic-curries',
-          spiceLevel: 'mild' as const
-        },
-        {
-          id: 'dhansak-veg',
-          name: 'Dhansak (Vegetable)',
-          description: 'Lentil-based curry with sweet & sour balance',
-          price: 8.50,
-          category: 'classic-curries',
-          isVegetarian: true,
-          spiceLevel: 'medium' as const
-        },
-        {
-          id: 'dhansak-chicken',
-          name: 'Dhansak (Chicken)',
-          description: 'Lentil-based curry with sweet & sour balance',
-          price: 10.50,
-          category: 'classic-curries',
-          spiceLevel: 'medium' as const
-        },
-        {
-          id: 'dhansak-lamb',
-          name: 'Dhansak (Lamb)',
-          description: 'Lentil-based curry with sweet & sour balance',
-          price: 11.00,
-          category: 'classic-curries',
-          spiceLevel: 'medium' as const
-        },
-        {
-          id: 'dhansak-prawn',
-          name: 'Dhansak (Prawn)',
-          description: 'Lentil-based curry with sweet & sour balance',
-          price: 12.50,
-          category: 'classic-curries',
-          spiceLevel: 'medium' as const
-        },
-        {
-          id: 'makhani-veg',
-          name: 'Makhani (Vegetable)',
-          description: 'Butter sauce curry with cream and mild spices',
-          price: 8.50,
-          category: 'classic-curries',
-          isVegetarian: true,
-          spiceLevel: 'mild' as const
-        },
-        {
-          id: 'makhani-chicken',
-          name: 'Makhani (Chicken)',
-          description: 'Butter sauce curry with cream and mild spices',
-          price: 10.50,
-          category: 'classic-curries',
-          spiceLevel: 'mild' as const
-        },
-        {
-          id: 'makhani-lamb',
-          name: 'Makhani (Lamb)',
-          description: 'Butter sauce curry with cream and mild spices',
-          price: 11.00,
-          category: 'classic-curries',
-          spiceLevel: 'mild' as const
-        },
-        {
-          id: 'makhani-prawn',
-          name: 'Makhani (Prawn)',
-          description: 'Butter sauce curry with cream and mild spices',
-          price: 12.50,
-          category: 'classic-curries',
-          spiceLevel: 'mild' as const
         },
         {
           id: 'bhuna-veg',
-          name: 'Bhuna (Vegetable)',
-          description: 'Cooked in onion and tomato sauce with garlic, chilli, fresh herbs and spices',
-          price: 8.50,
+          name: "Bhuna (Veg)",
+          description: "Cooked in onion & tomato sauce with garlic, chilli, fresh herbs & spices.",
+          price: 8.5,
           category: 'classic-curries',
           isVegetarian: true,
-          spiceLevel: 'medium' as const
         },
         {
           id: 'bhuna-chicken',
-          name: 'Bhuna (Chicken)',
-          description: 'Cooked in onion and tomato sauce with garlic, chilli, fresh herbs and spices',
-          price: 10.50,
+          name: "Bhuna (Chicken)",
+          description: "Cooked in onion & tomato sauce with garlic, chilli, fresh herbs & spices.",
+          price: 10.5,
           category: 'classic-curries',
-          spiceLevel: 'medium' as const
         },
         {
           id: 'bhuna-lamb',
-          name: 'Bhuna (Lamb)',
-          description: 'Cooked in onion and tomato sauce with garlic, chilli, fresh herbs and spices',
-          price: 11.00,
+          name: "Bhuna (Lamb)",
+          description: "Cooked in onion & tomato sauce with garlic, chilli, fresh herbs & spices.",
+          price: 11.5,
           category: 'classic-curries',
-          spiceLevel: 'medium' as const
         },
         {
           id: 'bhuna-prawn',
-          name: 'Bhuna (Prawn)',
-          description: 'Cooked in onion and tomato sauce with garlic, chilli, fresh herbs and spices',
-          price: 12.50,
+          name: "Bhuna (Prawn)",
+          description: "Cooked in onion & tomato sauce with garlic, chilli, fresh herbs & spices.",
+          price: 12.5,
           category: 'classic-curries',
-          spiceLevel: 'medium' as const
         },
         {
           id: 'karahi-veg',
-          name: 'Karahi (Vegetable)',
-          description: 'Onion and tomato-based curry with roasted spices',
-          price: 8.50,
+          name: "Karahi (Veg)",
+          description: "Onion and tomato-based curry with roasted spices.",
+          price: 8.5,
           category: 'classic-curries',
           isVegetarian: true,
-          spiceLevel: 'medium' as const
         },
         {
           id: 'karahi-chicken',
-          name: 'Karahi (Chicken)',
-          description: 'Onion and tomato-based curry with roasted spices',
-          price: 10.50,
+          name: "Karahi (Chicken)",
+          description: "Onion and tomato-based curry with roasted spices.",
+          price: 10.5,
           category: 'classic-curries',
-          spiceLevel: 'medium' as const
         },
         {
           id: 'karahi-lamb',
-          name: 'Karahi (Lamb)',
-          description: 'Onion and tomato-based curry with roasted spices',
-          price: 11.00,
+          name: "Karahi (Lamb)",
+          description: "Onion and tomato-based curry with roasted spices.",
+          price: 11.5,
           category: 'classic-curries',
-          spiceLevel: 'medium' as const
         },
         {
           id: 'karahi-prawn',
-          name: 'Karahi (Prawn)',
-          description: 'Onion and tomato-based curry with roasted spices',
-          price: 12.50,
+          name: "Karahi (Prawn)",
+          description: "Onion and tomato-based curry with roasted spices.",
+          price: 12.5,
           category: 'classic-curries',
-          spiceLevel: 'medium' as const
         },
         {
           id: 'jalfrezi-veg',
-          name: 'Jalfrezi (Vegetable)',
-          description: 'Spicy curry with peppers and green chillies',
-          price: 8.50,
+          name: "Jalfrezi (Veg)",
+          description: "Spicy curry with peppers and green chillies. Madras",
+          price: 8.5,
           category: 'classic-curries',
           isVegetarian: true,
-          spiceLevel: 'hot' as const
         },
         {
           id: 'jalfrezi-chicken',
-          name: 'Jalfrezi (Chicken)',
-          description: 'Spicy curry with peppers and green chillies',
-          price: 10.50,
+          name: "Jalfrezi (Chicken)",
+          description: "Spicy curry with peppers and green chillies. Madras",
+          price: 10.5,
           category: 'classic-curries',
-          spiceLevel: 'hot' as const
         },
         {
           id: 'jalfrezi-lamb',
-          name: 'Jalfrezi (Lamb)',
-          description: 'Spicy curry with peppers and green chillies',
-          price: 11.00,
+          name: "Jalfrezi (Lamb)",
+          description: "Spicy curry with peppers and green chillies. Madras",
+          price: 11.5,
           category: 'classic-curries',
-          spiceLevel: 'hot' as const
         },
         {
           id: 'jalfrezi-prawn',
-          name: 'Jalfrezi (Prawn)',
-          description: 'Spicy curry with peppers and green chillies',
-          price: 12.50,
+          name: "Jalfrezi (Prawn)",
+          description: "Spicy curry with peppers and green chillies. Madras",
+          price: 12.5,
           category: 'classic-curries',
-          spiceLevel: 'hot' as const
         },
-        {
-          id: 'madras-veg',
-          name: 'Madras (Vegetable)',
-          description: 'A hot, tangy curry with tomato, chilli, and spices',
-          price: 8.50,
-          category: 'classic-curries',
-          isVegetarian: true,
-          spiceLevel: 'hot' as const
-        },
-        {
-          id: 'madras-chicken',
-          name: 'Madras (Chicken)',
-          description: 'A hot, tangy curry with tomato, chilli, and spices',
-          price: 10.50,
-          category: 'classic-curries',
-          spiceLevel: 'hot' as const
-        },
-        {
-          id: 'madras-lamb',
-          name: 'Madras (Lamb)',
-          description: 'A hot, tangy curry with tomato, chilli, and spices',
-          price: 11.00,
-          category: 'classic-curries',
-          spiceLevel: 'hot' as const
-        },
-        {
-          id: 'madras-prawn',
-          name: 'Madras (Prawn)',
-          description: 'A hot, tangy curry with tomato, chilli, and spices',
-          price: 12.50,
-          category: 'classic-curries',
-          spiceLevel: 'hot' as const
-        },
-        {
-          id: 'xacuti-veg',
-          name: 'Xacuti (Vegetable)',
-          description: 'Goan curry with complex roasted spices',
-          price: 8.50,
-          category: 'classic-curries',
-          isVegetarian: true,
-          spiceLevel: 'medium' as const
-        },
-        {
-          id: 'xacuti-chicken',
-          name: 'Xacuti (Chicken)',
-          description: 'Goan curry with complex roasted spices',
-          price: 10.50,
-          category: 'classic-curries',
-          spiceLevel: 'medium' as const
-        },
-        {
-          id: 'xacuti-lamb',
-          name: 'Xacuti (Lamb)',
-          description: 'Goan curry with complex roasted spices',
-          price: 11.00,
-          category: 'classic-curries',
-          spiceLevel: 'medium' as const
-        },
-        {
-          id: 'xacuti-prawn',
-          name: 'Xacuti (Prawn)',
-          description: 'Goan curry with complex roasted spices',
-          price: 12.50,
-          category: 'classic-curries',
-          spiceLevel: 'medium' as const
-        }
       ]
     },
     {
       id: 'biryani',
-      name: 'Biryani',
-      description: 'Slow cooked with aromatic rice, spices, and caramelised onions, served with raita',
+      name: "Biryani",
+      description: "Slow cooked with aromatic rice, spices, and caramelised onions, served with raita",
       items: [
         {
-          id: 'veg-biryani',
-          name: 'Veg Biryani',
-          description: 'Aromatic basmati rice with mixed vegetables and spices',
-          price: 10.00,
+          id: 'veg-biryani-d',
+          name: "Veg Biryani (D)",
+          description: "",
+          price: 10.5,
           category: 'biryani',
-          isVegetarian: true,
-          spiceLevel: 'medium' as const
         },
         {
-          id: 'chicken-biryani',
-          name: 'Chicken Biryani',
-          description: 'Aromatic basmati rice with tender chicken and spices',
-          price: 11.00,
+          id: 'chicken-biryani-d',
+          name: "Chicken Biryani (D)",
+          description: "",
+          price: 11.5,
           category: 'biryani',
-          spiceLevel: 'medium' as const
         },
         {
-          id: 'lamb-biryani',
-          name: 'Lamb Biryani',
-          description: 'Aromatic basmati rice with succulent lamb and spices',
-          price: 12.00,
+          id: 'lamb-biryani-d',
+          name: "Lamb Biryani (D)",
+          description: "",
+          price: 12.5,
           category: 'biryani',
-          spiceLevel: 'medium' as const
         },
         {
-          id: 'prawn-biryani',
-          name: 'Prawn Biryani',
-          description: 'Aromatic basmati rice with fresh prawns and spices',
-          price: 13.00,
+          id: 'prawn-biryani-dc',
+          name: "Prawn Biryani (D/C)",
+          description: "",
+          price: 13.5,
           category: 'biryani',
-          spiceLevel: 'medium' as const
-        }
+        },
       ]
     },
     {
-      id: 'vegetarian',
-      name: 'Vegetarian Dishes',
-      description: 'Traditional vegetarian mains and sides (most can be made vegan on request)',
+      id: 'vegetarian-dishes',
+      name: "Vegetarian Dishes",
+      description: "Vegetable dishes and sides",
       items: [
         {
-          id: 'daal-makhani',
-          name: 'Daal Makhani (Main)',
-          description: 'Slow-cooked black lentils in creamy sauce',
-          price: 8.50,
-          category: 'vegetarian',
+          id: 'daal-makhani-d-main',
+          name: "Daal Makhani (D) (Main)",
+          description: "Slow-cooked black lentils in creamy sauce._ Paneer Makhani (D)",
+          price: 8.5,
+          category: 'vegetarian-dishes',
           isVegetarian: true,
-          spiceLevel: 'mild' as const
         },
         {
-          id: 'daal-makhani-side',
-          name: 'Daal Makhani (Side)',
-          description: 'Slow-cooked black lentils in creamy sauce',
-          price: 5.50,
-          category: 'vegetarian',
+          id: 'daal-makhani-d-side',
+          name: "Daal Makhani (D) (Side)",
+          description: "Slow-cooked black lentils in creamy sauce._ Paneer Makhani (D)",
+          price: 5.5,
+          category: 'vegetarian-dishes',
           isVegetarian: true,
-          spiceLevel: 'mild' as const
         },
         {
-          id: 'paneer-makhani',
-          name: 'Paneer Makhani (Main)',
-          description: 'Paneer in rich tomato-fenugreek gravy',
-          price: 8.50,
-          category: 'vegetarian',
+          id: 'saag-aloo-d-main',
+          name: "Saag Aloo (D) (Main)",
+          description: "Spinach with potatoes.",
+          price: 8.5,
+          category: 'vegetarian-dishes',
           isVegetarian: true,
-          spiceLevel: 'mild' as const
         },
         {
-          id: 'paneer-makhani-side',
-          name: 'Paneer Makhani (Side)',
-          description: 'Paneer in rich tomato-fenugreek gravy',
-          price: 5.50,
-          category: 'vegetarian',
+          id: 'saag-aloo-d-side',
+          name: "Saag Aloo (D) (Side)",
+          description: "Spinach with potatoes.",
+          price: 5.5,
+          category: 'vegetarian-dishes',
           isVegetarian: true,
-          spiceLevel: 'mild' as const
         },
         {
-          id: 'saag-paneer',
-          name: 'Saag Paneer (Main)',
-          description: 'Spinach with paneer',
-          price: 8.50,
-          category: 'vegetarian',
+          id: 'chana-masala-main',
+          name: "Chana Masala (Main)",
+          description: "Chickpeas in tomato-onion masala.",
+          price: 8.5,
+          category: 'vegetarian-dishes',
           isVegetarian: true,
-          spiceLevel: 'medium' as const
-        },
-        {
-          id: 'saag-paneer-side',
-          name: 'Saag Paneer (Side)',
-          description: 'Spinach with paneer',
-          price: 5.50,
-          category: 'vegetarian',
-          isVegetarian: true,
-          spiceLevel: 'medium' as const
-        },
-        {
-          id: 'saag-aloo',
-          name: 'Saag Aloo (Main)',
-          description: 'Spinach with potatoes',
-          price: 8.50,
-          category: 'vegetarian',
-          isVegetarian: true,
-          spiceLevel: 'medium' as const
-        },
-        {
-          id: 'saag-aloo-side',
-          name: 'Saag Aloo (Side)',
-          description: 'Spinach with potatoes',
-          price: 5.50,
-          category: 'vegetarian',
-          isVegetarian: true,
-          spiceLevel: 'medium' as const
-        },
-        {
-          id: 'chana-masala',
-          name: 'Chana Masala (Main)',
-          description: 'Chickpeas in tomato-onion masala',
-          price: 8.50,
-          category: 'vegetarian',
-          isVegetarian: true,
-          spiceLevel: 'medium' as const
         },
         {
           id: 'chana-masala-side',
-          name: 'Chana Masala (Side)',
-          description: 'Chickpeas in tomato-onion masala',
-          price: 5.50,
-          category: 'vegetarian',
+          name: "Chana Masala (Side)",
+          description: "Chickpeas in tomato-onion masala.",
+          price: 5.5,
+          category: 'vegetarian-dishes',
           isVegetarian: true,
-          spiceLevel: 'medium' as const
         },
         {
-          id: 'mushroom-masala',
-          name: 'Mushroom Masala (Main)',
-          description: 'Mushrooms with tomatoes, onions, and spices',
-          price: 8.50,
-          category: 'vegetarian',
+          id: 'mushroom-masala-main',
+          name: "Mushroom Masala (Main)",
+          description: "Mushrooms with tomatoes, onions, and spices.",
+          price: 8.5,
+          category: 'vegetarian-dishes',
           isVegetarian: true,
-          spiceLevel: 'medium' as const
         },
         {
           id: 'mushroom-masala-side',
-          name: 'Mushroom Masala (Side)',
-          description: 'Mushrooms with tomatoes, onions, and spices',
-          price: 5.50,
-          category: 'vegetarian',
+          name: "Mushroom Masala (Side)",
+          description: "Mushrooms with tomatoes, onions, and spices.",
+          price: 5.5,
+          category: 'vegetarian-dishes',
           isVegetarian: true,
-          spiceLevel: 'medium' as const
         },
         {
-          id: 'bombay-aloo',
-          name: 'Bombay Aloo (Main)',
-          description: 'Potatoes with herbs',
-          price: 8.50,
-          category: 'vegetarian',
+          id: 'bombay-aloo-main',
+          name: "Bombay Aloo (Main)",
+          description: "Potatoes with herbs.",
+          price: 8.5,
+          category: 'vegetarian-dishes',
           isVegetarian: true,
-          spiceLevel: 'mild' as const
         },
         {
           id: 'bombay-aloo-side',
-          name: 'Bombay Aloo (Side)',
-          description: 'Potatoes with herbs',
-          price: 5.50,
-          category: 'vegetarian',
+          name: "Bombay Aloo (Side)",
+          description: "Potatoes with herbs.",
+          price: 5.5,
+          category: 'vegetarian-dishes',
           isVegetarian: true,
-          spiceLevel: 'mild' as const
         },
         {
-          id: 'aloo-gobi',
-          name: 'Aloo Gobi (Main)',
-          description: 'Cauliflower and potatoes in spices',
-          price: 8.50,
-          category: 'vegetarian',
+          id: 'aloo-gobi-main',
+          name: "Aloo Gobi (Main)",
+          description: "Cauliflower and potatoes in spices.",
+          price: 8.5,
+          category: 'vegetarian-dishes',
           isVegetarian: true,
-          spiceLevel: 'medium' as const
         },
         {
           id: 'aloo-gobi-side',
-          name: 'Aloo Gobi (Side)',
-          description: 'Cauliflower and potatoes in spices',
-          price: 5.50,
-          category: 'vegetarian',
+          name: "Aloo Gobi (Side)",
+          description: "Cauliflower and potatoes in spices.",
+          price: 5.5,
+          category: 'vegetarian-dishes',
           isVegetarian: true,
-          spiceLevel: 'medium' as const
         },
         {
-          id: 'achari-aubergine',
-          name: 'Achari Aubergine (Main)',
-          description: 'Aubergine with tangy pickle spices',
-          price: 8.50,
-          category: 'vegetarian',
+          id: 'achari-aubergine-main',
+          name: "Achari Aubergine (Main)",
+          description: "Aubergine with tangy pickle spices.",
+          price: 8.5,
+          category: 'vegetarian-dishes',
           isVegetarian: true,
-          spiceLevel: 'medium' as const
         },
         {
           id: 'achari-aubergine-side',
-          name: 'Achari Aubergine (Side)',
-          description: 'Aubergine with tangy pickle spices',
-          price: 5.50,
-          category: 'vegetarian',
+          name: "Achari Aubergine (Side)",
+          description: "Aubergine with tangy pickle spices.",
+          price: 5.5,
+          category: 'vegetarian-dishes',
           isVegetarian: true,
-          spiceLevel: 'medium' as const
         },
         {
-          id: 'tadka-daal',
-          name: 'Tadka Daal (Main)',
-          description: 'Lentils tempered with garlic and cumin',
-          price: 8.50,
-          category: 'vegetarian',
+          id: 'tadka-daal-main',
+          name: "Tadka Daal (Main)",
+          description: "Lentils tempered with garlic and cumin.",
+          price: 8.5,
+          category: 'vegetarian-dishes',
           isVegetarian: true,
-          spiceLevel: 'mild' as const
         },
         {
           id: 'tadka-daal-side',
-          name: 'Tadka Daal (Side)',
-          description: 'Lentils tempered with garlic and cumin',
-          price: 5.50,
-          category: 'vegetarian',
+          name: "Tadka Daal (Side)",
+          description: "Lentils tempered with garlic and cumin.",
+          price: 5.5,
+          category: 'vegetarian-dishes',
           isVegetarian: true,
-          spiceLevel: 'mild' as const
-        }
+        },
       ]
     },
     {
       id: 'rice-chowmein',
-      name: 'Rice & Chowmein',
-      description: 'Aromatic rice dishes and noodle specialties',
+      name: "Rice & Chowmein",
+      description: "Perfect sides",
       items: [
         {
           id: 'basmati-rice',
-          name: 'Basmati Rice',
-          description: 'Steamed aromatic basmati rice',
-          price: 2.00,
+          name: "Basmati Rice",
+          description: "",
+          price: 2.95,
           category: 'rice-chowmein',
           isVegetarian: true,
-          spiceLevel: 'mild' as const
         },
         {
-          id: 'pilau-rice',
-          name: 'Pilau Rice',
-          description: 'Fragrant basmati rice with spices',
-          price: 3.00,
+          id: 'pilau-rice-d',
+          name: "Pilau Rice (D)",
+          description: "",
+          price: 3.25,
           category: 'rice-chowmein',
           isVegetarian: true,
-          spiceLevel: 'mild' as const
         },
         {
           id: 'hot-chilli-lemon-rice',
-          name: 'Hot Chilli Lemon Rice',
-          description: 'Spiced rice with chilli and lemon',
-          price: 3.00,
+          name: "Hot Chilli Lemon Rice",
+          description: "",
+          price: 3.25,
           category: 'rice-chowmein',
           isVegetarian: true,
-          spiceLevel: 'hot' as const
         },
         {
-          id: 'mushroom-rice',
-          name: 'Mushroom Rice',
-          description: 'Basmati rice with mushrooms',
-          price: 3.00,
+          id: 'mushroom-rice-d',
+          name: "Mushroom Rice (D)",
+          description: "",
+          price: 3.5,
           category: 'rice-chowmein',
           isVegetarian: true,
-          spiceLevel: 'mild' as const
         },
         {
           id: 'egg-rice',
-          name: 'Egg Rice',
-          description: 'Fried rice with scrambled eggs',
-          price: 3.00,
+          name: "Egg Rice",
+          description: "",
+          price: 3.5,
           category: 'rice-chowmein',
           isVegetarian: true,
-          spiceLevel: 'mild' as const
         },
         {
           id: 'special-fried-rice',
-          name: 'Special Fried Rice',
-          description: 'Mixed fried rice with vegetables and spices',
-          price: 3.00,
+          name: "Special Fried Rice",
+          description: "",
+          price: 3.95,
           category: 'rice-chowmein',
           isVegetarian: true,
-          spiceLevel: 'mild' as const
         },
         {
-          id: 'chicken-chowmein',
-          name: 'Chicken Chowmein',
-          description: 'Stir-fried noodles with chicken',
-          price: 7.00,
+          id: 'veg-chowmein-s',
+          name: "Veg chowmein (S)",
+          description: "",
+          price: 7.5,
           category: 'rice-chowmein',
-          spiceLevel: 'medium' as const
+          isVegetarian: true,
         },
         {
-          id: 'mutton-chowmein',
-          name: 'Mutton Chowmein',
-          description: 'Stir-fried noodles with mutton',
-          price: 7.00,
+          id: 'chicken-chowmein-s',
+          name: "Chicken Chowmein (S)",
+          description: "",
+          price: 8.5,
           category: 'rice-chowmein',
-          spiceLevel: 'medium' as const
         },
         {
-          id: 'fusion-special-chowmein',
-          name: 'Fusion Special Chowmein',
-          description: 'House special stir-fried noodles with mixed ingredients',
-          price: 9.00,
+          id: 'fusion-special-chowmein-cse',
+          name: "Fusion Special Chowmein (C/S/E)",
+          description: "Stir-fried egg noodles with tender chicken, shrimps, crisp vegetables and a rich, savory sauce",
+          price: 9.5,
           category: 'rice-chowmein',
-          spiceLevel: 'medium' as const
-        }
+        },
       ]
     },
     {
       id: 'breads',
-      name: 'Breads',
-      description: 'Freshly baked traditional breads',
+      name: "Breads",
+      description: "Freshly baked traditional breads",
       items: [
         {
-          id: 'plain-naan',
-          name: 'Plain Naan',
-          description: 'Traditional leavened bread',
-          price: 2.00,
+          id: 'plain-naand',
+          name: "Plain Naan(D)",
+          description: "",
+          price: 2.95,
           category: 'breads',
-          isVegetarian: true,
-          spiceLevel: 'mild' as const
         },
         {
-          id: 'peshawari-naan',
-          name: 'Peshawari Naan',
-          description: 'Sweet naan with coconut, almond & raisin',
-          price: 3.00,
+          id: 'peshawari-naan-dn',
+          name: "Peshawari Naan) (D/N)",
+          description: "",
+          price: 3.25,
           category: 'breads',
-          isVegetarian: true,
-          spiceLevel: 'mild' as const
         },
         {
-          id: 'garlic-naan',
-          name: 'Garlic Naan',
-          description: 'Naan bread with fresh garlic',
-          price: 3.00,
+          id: 'garlic-naan-d',
+          name: "Garlic Naan (D)",
+          description: "",
+          price: 3.25,
           category: 'breads',
-          isVegetarian: true,
-          spiceLevel: 'mild' as const
         },
         {
-          id: 'keema-naan',
-          name: 'Keema Naan',
-          description: 'Naan stuffed with spiced minced lamb',
-          price: 3.00,
+          id: 'keema-naan-d',
+          name: "Keema Naan (D)",
+          description: "",
+          price: 3.25,
           category: 'breads',
-          spiceLevel: 'medium' as const
         },
         {
           id: 'chapati',
-          name: 'Chapati',
-          description: 'Unleavened whole wheat bread',
-          price: 2.00,
+          name: "Chapati",
+          description: "",
+          price: 2.95,
           category: 'breads',
-          isVegetarian: true,
-          spiceLevel: 'mild' as const
         },
         {
           id: 'tandoori-roti',
-          name: 'Tandoori Roti',
-          description: 'Whole wheat bread cooked in tandoor',
-          price: 2.00,
+          name: "Tandoori Roti",
+          description: "",
+          price: 2.95,
           category: 'breads',
-          isVegetarian: true,
-          spiceLevel: 'mild' as const
         },
         {
           id: 'aloo-paratha',
-          name: 'Aloo Paratha',
-          description: 'Bread stuffed with spiced potatoes',
-          price: 3.00,
+          name: "Aloo Paratha",
+          description: "",
+          price: 3.5,
           category: 'breads',
-          isVegetarian: true,
-          spiceLevel: 'medium' as const
         },
         {
           id: 'lachha-paratha',
-          name: 'Lachha Paratha',
-          description: 'Layered flaky bread',
-          price: 3.00,
+          name: "Lachha Paratha",
+          description: "",
+          price: 3.5,
           category: 'breads',
-          isVegetarian: true,
-          spiceLevel: 'mild' as const
-        }
-      ]
-    },
-    {
-      id: 'desserts',
-      name: 'Desserts',
-      description: 'Sweet endings to your meal',
-      items: [
-        {
-          id: 'kulfi-mango',
-          name: 'Kulfi (Mango)',
-          description: 'Traditional Indian ice cream with mango',
-          price: 3.00,
-          category: 'desserts',
-          isVegetarian: true
         },
-        {
-          id: 'kulfi-pistachio',
-          name: 'Kulfi (Pistachio)',
-          description: 'Traditional Indian ice cream with pistachio',
-          price: 3.00,
-          category: 'desserts',
-          isVegetarian: true
-        },
-        {
-          id: 'ice-cream-vanilla',
-          name: 'Ice Cream (Vanilla)',
-          description: 'Classic vanilla ice cream',
-          price: 3.00,
-          category: 'desserts',
-          isVegetarian: true
-        },
-        {
-          id: 'ice-cream-chocolate',
-          name: 'Ice Cream (Chocolate)',
-          description: 'Rich chocolate ice cream',
-          price: 3.00,
-          category: 'desserts',
-          isVegetarian: true
-        },
-        {
-          id: 'gulab-jamun',
-          name: 'Gulab Jamun',
-          description: 'Sweet milk dumplings in rose syrup',
-          price: 3.00,
-          category: 'desserts',
-          isVegetarian: true
-        }
       ]
     },
     {
       id: 'accompaniments',
-      name: 'Accompaniments',
-      description: 'Perfect sides to complement your meal',
+      name: "Accompaniments",
+      description: "Perfect sides to complement your meal",
       items: [
         {
           id: 'kachumber-salad',
-          name: 'Kachumber Salad',
-          description: 'Fresh cucumber, tomato, and onion salad',
-          price: 3.00,
+          name: "Kachumber Salad",
+          description: "",
+          price: 3.95,
           category: 'accompaniments',
-          isVegetarian: true,
-          spiceLevel: 'mild' as const
         },
         {
           id: 'mix-green-salad',
-          name: 'Mix Green Salad',
-          description: 'Fresh mixed green salad',
-          price: 3.00,
+          name: "Mix Green Salad",
+          description: "",
+          price: 3.95,
           category: 'accompaniments',
-          isVegetarian: true,
-          spiceLevel: 'mild' as const
         },
         {
-          id: 'raita',
-          name: 'Raita',
-          description: 'Cooling yogurt with cucumber and spices',
-          price: 3.00,
+          id: 'raita-d',
+          name: "Raita (D)",
+          description: "",
+          price: 3.95,
           category: 'accompaniments',
-          isVegetarian: true,
-          spiceLevel: 'mild' as const
-        }
+        },
       ]
-    }
+    },
+    {
+      id: 'drinks',
+      name: "Drinks",
+      description: "Refreshing beverages",
+      items: [
+        {
+          id: 'can-cokediet-cokelemonade-330ml',
+          name: "Can Coke/Diet Coke/Lemonade (330ml)",
+          description: "",
+          price: 2.5,
+          category: 'drinks',
+          options: ['Coke', 'Diet Coke', 'Lemonade']
+        },
+        {
+          id: 'bottle-cokediet-cokelemonade-125l',
+          name: "Bottle Coke/Diet Coke/Lemonade (1.25l)",
+          description: "",
+          price: 3.5,
+          category: 'drinks',
+          options: ['Coke', 'Diet Coke', 'Lemonade']
+        },
+        {
+          id: 'still-sparkling-water-750ml',
+          name: "Still /Sparkling Water (750ml)",
+          description: "",
+          price: 3.5,
+          category: 'drinks',
+          options: ['Still', 'Sparkling']
+        },
+        {
+          id: 'stillsparkling-water-330ml',
+          name: "Still/Sparkling Water (330ml)",
+          description: "",
+          price: 2.5,
+          category: 'drinks',
+          options: ['Still', 'Sparkling']
+        },
+      ]
+    },
   ]
 };
 
@@ -1118,5 +843,5 @@ export const NAVIGATION_ITEMS = [
   { name: 'Menu', href: '/menu' },
   { name: 'Reservations', href: '/reservations' },
   { name: 'Order Online', href: '/order' },
-  { name: 'Contact', href: '/contact' }
+  { name: 'Contact', href: '/contact' },
 ];

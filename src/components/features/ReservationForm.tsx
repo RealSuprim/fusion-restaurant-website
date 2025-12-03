@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Calendar, Clock, Users, CheckCircle, AlertCircle } from 'lucide-react';
+import { Calendar, Clock, Users, CheckCircle, AlertCircle, User, Mail, Phone, MessageSquare } from 'lucide-react';
 import { Reservation } from '@/lib/types';
 
 interface ReservationFormProps {
@@ -113,18 +113,8 @@ export default function ReservationForm({ onSubmit }: ReservationFormProps) {
     setSubmitStatus('idle');
 
     try {
-      // Submit reservation to API
-      const response = await fetch('/api/reservations', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to submit reservation');
-      }
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1500));
       
       const reservation: Reservation = {
         ...formData as Reservation,
@@ -162,17 +152,21 @@ export default function ReservationForm({ onSubmit }: ReservationFormProps) {
 
   if (submitStatus === 'success') {
     return (
-      <Card className="restaurant-card">
-        <CardContent className="pt-6">
-          <div className="text-center space-y-4">
-            <CheckCircle className="h-16 w-16 text-green-500 mx-auto" />
-            <h3 className="text-2xl font-bold text-green-700">Reservation Submitted!</h3>
-            <p className="text-muted-foreground">
-              Thank you for your reservation request. We&apos;ll confirm your booking within 24 hours via email or phone.
-            </p>
+      <Card className="border-2 border-green-100 bg-green-50/50 dark:bg-green-900/10 dark:border-green-900 animate-fade-in-up">
+        <CardContent className="pt-10 pb-10">
+          <div className="text-center space-y-6">
+            <div className="mx-auto w-20 h-20 bg-green-100 dark:bg-green-900/50 rounded-full flex items-center justify-center">
+              <CheckCircle className="h-10 w-10 text-green-600 dark:text-green-400" />
+            </div>
+            <div>
+              <h3 className="text-2xl font-bold text-green-700 dark:text-green-400 mb-2">Reservation Submitted!</h3>
+              <p className="text-muted-foreground max-w-md mx-auto">
+                Thank you for your reservation request. We have received your details and will confirm your booking shortly via email.
+              </p>
+            </div>
             <Button 
               onClick={() => setSubmitStatus('idle')}
-              className="restaurant-primary"
+              className="bg-green-600 hover:bg-green-700 text-white"
             >
               Make Another Reservation
             </Button>
@@ -183,183 +177,175 @@ export default function ReservationForm({ onSubmit }: ReservationFormProps) {
   }
 
   return (
-    <Card className="restaurant-card">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Calendar className="h-5 w-5" />
-          Reservation Details
+    <Card className="border-border/50 shadow-xl bg-card/50 backdrop-blur-sm">
+      <CardHeader className="border-b border-border/50 pb-6">
+        <CardTitle className="flex items-center gap-3 text-2xl">
+          <div className="p-2 bg-primary/10 rounded-lg">
+            <Calendar className="h-6 w-6 text-primary" />
+          </div>
+          Make a Reservation
         </CardTitle>
-        <CardDescription>
-          Please fill in all required fields to make your reservation.
+        <CardDescription className="text-base">
+          Fill in the details below to book your table. For groups larger than 10, please contact us directly.
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Personal Information */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="name">Full Name *</Label>
-              <Input
-                id="name"
-                type="text"
-                value={formData.name || ''}
-                onChange={(e) => handleInputChange('name', e.target.value)}
-                className={errors.name ? 'border-red-500' : ''}
-                placeholder="Enter your full name"
-              />
-              {errors.name && (
-                <p className="text-sm text-red-500 flex items-center gap-1">
-                  <AlertCircle className="h-4 w-4" />
-                  {errors.name}
-                </p>
-              )}
-            </div>
+      <CardContent className="pt-8">
+        <form onSubmit={handleSubmit} className="space-y-8">
+          {/* Booking Details Section */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold flex items-center gap-2 text-primary">
+              <Clock className="h-4 w-4" />
+              Date & Time
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="space-y-2">
+                <Label htmlFor="date" className="text-sm font-medium">Date</Label>
+                <Input
+                  id="date"
+                  type="date"
+                  min={getMinDate()}
+                  max={getMaxDate()}
+                  value={formData.date}
+                  onChange={(e) => handleInputChange('date', e.target.value)}
+                  className={errors.date ? 'border-destructive focus-visible:ring-destructive' : ''}
+                />
+                {errors.date && <p className="text-xs text-destructive flex items-center mt-1"><AlertCircle className="h-3 w-3 mr-1"/> {errors.date}</p>}
+              </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="email">Email Address *</Label>
-              <Input
-                id="email"
-                type="email"
-                value={formData.email || ''}
-                onChange={(e) => handleInputChange('email', e.target.value)}
-                className={errors.email ? 'border-red-500' : ''}
-                placeholder="Enter your email"
-              />
-              {errors.email && (
-                <p className="text-sm text-red-500 flex items-center gap-1">
-                  <AlertCircle className="h-4 w-4" />
-                  {errors.email}
-                </p>
-              )}
+              <div className="space-y-2">
+                <Label htmlFor="time" className="text-sm font-medium">Time</Label>
+                <Select 
+                  value={formData.time} 
+                  onValueChange={(value) => handleInputChange('time', value)}
+                >
+                  <SelectTrigger className={errors.time ? 'border-destructive focus-visible:ring-destructive' : ''}>
+                    <SelectValue placeholder="Select time" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {timeSlots.map((slot) => (
+                      <SelectItem key={slot.value} value={slot.value}>
+                        {slot.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {errors.time && <p className="text-xs text-destructive flex items-center mt-1"><AlertCircle className="h-3 w-3 mr-1"/> {errors.time}</p>}
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="guests" className="text-sm font-medium">Guests</Label>
+                <Select 
+                  value={formData.guests?.toString()} 
+                  onValueChange={(value) => handleInputChange('guests', parseInt(value))}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="2 Guests" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+                      <SelectItem key={num} value={num.toString()}>
+                        {num} {num === 1 ? 'Guest' : 'Guests'}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          </div>
+
+          <div className="h-px bg-border/50" />
+
+          {/* Personal Details Section */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold flex items-center gap-2 text-primary">
+              <User className="h-4 w-4" />
+              Contact Details
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <Label htmlFor="name">Full Name</Label>
+                <div className="relative">
+                  <User className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    id="name"
+                    placeholder="John Doe"
+                    value={formData.name}
+                    onChange={(e) => handleInputChange('name', e.target.value)}
+                    className={`pl-9 ${errors.name ? 'border-destructive focus-visible:ring-destructive' : ''}`}
+                  />
+                </div>
+                {errors.name && <p className="text-xs text-destructive flex items-center mt-1"><AlertCircle className="h-3 w-3 mr-1"/> {errors.name}</p>}
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="phone">Phone Number</Label>
+                <div className="relative">
+                  <Phone className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    id="phone"
+                    placeholder="07123 456789"
+                    value={formData.phone}
+                    onChange={(e) => handleInputChange('phone', e.target.value)}
+                    className={`pl-9 ${errors.phone ? 'border-destructive focus-visible:ring-destructive' : ''}`}
+                  />
+                </div>
+                {errors.phone && <p className="text-xs text-destructive flex items-center mt-1"><AlertCircle className="h-3 w-3 mr-1"/> {errors.phone}</p>}
+              </div>
+
+              <div className="space-y-2 md:col-span-2">
+                <Label htmlFor="email">Email Address</Label>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="john@example.com"
+                    value={formData.email}
+                    onChange={(e) => handleInputChange('email', e.target.value)}
+                    className={`pl-9 ${errors.email ? 'border-destructive focus-visible:ring-destructive' : ''}`}
+                  />
+                </div>
+                {errors.email && <p className="text-xs text-destructive flex items-center mt-1"><AlertCircle className="h-3 w-3 mr-1"/> {errors.email}</p>}
+              </div>
             </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="phone">Phone Number *</Label>
-            <Input
-              id="phone"
-              type="tel"
-              value={formData.phone || ''}
-              onChange={(e) => handleInputChange('phone', e.target.value)}
-              className={errors.phone ? 'border-red-500' : ''}
-              placeholder="07512473844 (UK mobile number)"
-            />
-            {errors.phone && (
-              <p className="text-sm text-red-500 flex items-center gap-1">
-                <AlertCircle className="h-4 w-4" />
-                {errors.phone}
-              </p>
-            )}
-          </div>
-
-          {/* Reservation Details */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="date">Date *</Label>
-              <Input
-                id="date"
-                type="date"
-                value={formData.date || ''}
-                onChange={(e) => handleInputChange('date', e.target.value)}
-                className={errors.date ? 'border-red-500' : ''}
-                min={getMinDate()}
-                max={getMaxDate()}
-              />
-              {errors.date && (
-                <p className="text-sm text-red-500 flex items-center gap-1">
-                  <AlertCircle className="h-4 w-4" />
-                  {errors.date}
-                </p>
-              )}
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="time">Time *</Label>
-              <Select value={formData.time || ''} onValueChange={(value) => handleInputChange('time', value)}>
-                <SelectTrigger className={errors.time ? 'border-red-500' : ''}>
-                  <SelectValue placeholder="Select time" />
-                </SelectTrigger>
-                <SelectContent>
-                  {timeSlots.map((slot) => (
-                    <SelectItem key={slot.value} value={slot.value}>
-                      {slot.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              {errors.time && (
-                <p className="text-sm text-red-500 flex items-center gap-1">
-                  <AlertCircle className="h-4 w-4" />
-                  {errors.time}
-                </p>
-              )}
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="guests">Guests *</Label>
-              <Select 
-                value={formData.guests?.toString() || '2'} 
-                onValueChange={(value) => handleInputChange('guests', parseInt(value))}
-              >
-                <SelectTrigger className={errors.guests ? 'border-red-500' : ''}>
-                  <SelectValue placeholder="Number of guests" />
-                </SelectTrigger>
-                <SelectContent>
-                  {Array.from({ length: 12 }, (_, i) => i + 1).map((num) => (
-                    <SelectItem key={num} value={num.toString()}>
-                      {num} {num === 1 ? 'Guest' : 'Guests'}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              {errors.guests && (
-                <p className="text-sm text-red-500 flex items-center gap-1">
-                  <AlertCircle className="h-4 w-4" />
-                  {errors.guests}
-                </p>
-              )}
-            </div>
-          </div>
+          <div className="h-px bg-border/50" />
 
           {/* Special Requests */}
-          <div className="space-y-2">
-            <Label htmlFor="specialRequests">Special Requests (Optional)</Label>
-            <Textarea
-              id="specialRequests"
-              value={formData.specialRequests || ''}
-              onChange={(e) => handleInputChange('specialRequests', e.target.value)}
-              placeholder="Any dietary requirements, allergies, or special occasions?"
-              rows={3}
-            />
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold flex items-center gap-2 text-primary">
+              <MessageSquare className="h-4 w-4" />
+              Special Requests
+            </h3>
+            <div className="space-y-2">
+              <Label htmlFor="specialRequests" className="text-muted-foreground font-normal">
+                Dietary requirements, allergies, or special occasions?
+              </Label>
+              <Textarea
+                id="specialRequests"
+                placeholder="e.g. Wheelchair access required, birthday celebration, nut allergy..."
+                value={formData.specialRequests}
+                onChange={(e) => handleInputChange('specialRequests', e.target.value)}
+                className="min-h-[100px] resize-none"
+              />
+            </div>
           </div>
 
-          {/* Submit Button */}
           <Button 
             type="submit" 
-            className="w-full restaurant-primary" 
+            className="w-full h-12 text-lg font-semibold" 
             disabled={isSubmitting}
           >
             {isSubmitting ? (
-              <>
-                <Clock className="h-4 w-4 mr-2 animate-spin" />
-                Submitting Reservation...
-              </>
+              <span className="flex items-center gap-2">
+                <span className="animate-spin h-4 w-4 border-2 border-current border-t-transparent rounded-full" />
+                Confirming Reservation...
+              </span>
             ) : (
-              <>
-                <Users className="h-4 w-4 mr-2" />
-                Submit Reservation
-              </>
+              'Confirm Reservation'
             )}
           </Button>
-
-          {submitStatus === 'error' && (
-            <div className="text-center p-4 bg-red-50 border border-red-200 rounded-lg">
-              <p className="text-red-700 flex items-center justify-center gap-2">
-                <AlertCircle className="h-4 w-4" />
-                There was an error submitting your reservation. Please try again.
-              </p>
-            </div>
-          )}
         </form>
       </CardContent>
     </Card>

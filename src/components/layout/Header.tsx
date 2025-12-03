@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from '@/components/ui/navigation-menu';
-import { Menu, Phone, MapPin } from 'lucide-react';
+import { Menu, Phone, MapPin, Clock } from 'lucide-react';
 import { NAVIGATION_ITEMS, RESTAURANT_INFO } from '@/lib/constants';
 import { ThemeToggle } from './ThemeToggle';
 import { formatTime } from '@/lib/utils';
@@ -15,50 +15,53 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm">
       {/* Top bar with contact info */}
-      <div className="hidden md:block bg-primary text-primary-foreground py-2">
-        <div className="container mx-auto px-4 flex justify-between items-center text-sm">
-          <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-1">
+      <div className="hidden md:block bg-primary text-primary-foreground py-2.5">
+        <div className="container mx-auto px-4 flex justify-between items-center text-sm font-medium">
+          <div className="flex items-center space-x-6">
+            <div className="flex items-center space-x-2 hover:text-secondary transition-colors">
               <Phone className="h-4 w-4" />
               <span>{RESTAURANT_INFO.phone}</span>
             </div>
-            <div className="flex items-center space-x-1">
+            <div className="flex items-center space-x-2 hover:text-secondary transition-colors">
               <MapPin className="h-4 w-4" />
               <span>{RESTAURANT_INFO.address}</span>
             </div>
           </div>
-          <div className="text-sm">
-            Open: Mon-Thu {formatTime(RESTAURANT_INFO.openingHours.monday.open)}-{formatTime(RESTAURANT_INFO.openingHours.monday.close)} | Fri {formatTime(RESTAURANT_INFO.openingHours.friday.open)}-{formatTime(RESTAURANT_INFO.openingHours.friday.close)} | Sat {formatTime(RESTAURANT_INFO.openingHours.saturday.open)}-{formatTime(RESTAURANT_INFO.openingHours.saturday.close)} | Sun {formatTime(RESTAURANT_INFO.openingHours.sunday.open)}-{formatTime(RESTAURANT_INFO.openingHours.sunday.close)}
+          <div className="flex items-center space-x-2">
+            <Clock className="h-4 w-4" />
+            <span className="text-sm">
+              Daily: {formatTime(RESTAURANT_INFO.openingHours.monday.open)} - {formatTime(RESTAURANT_INFO.openingHours.monday.close)}
+            </span>
           </div>
         </div>
       </div>
 
       {/* Main navigation */}
       <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-20 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center">
+          <Link href="/" className="flex items-center transition-transform hover:scale-105">
             <Image
               src="/assets/logo.svg"
               alt={`${RESTAURANT_INFO.name} Logo`}
-              width={150}
-              height={150}
-              className="w-[150px] dark:invert"
+              width={140}
+              height={40}
+              className="w-auto h-12 dark:invert"
               priority
             />
           </Link>
 
           {/* Desktop Navigation */}
           <NavigationMenu className="hidden md:flex">
-            <NavigationMenuList className="space-x-2">
+            <NavigationMenuList className="space-x-1">
               {NAVIGATION_ITEMS.map((item) => (
                 <NavigationMenuItem key={item.name}>
                   <NavigationMenuLink asChild>
                     <Link
                       href={item.href}
-                      className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
+                      className="group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-base font-serif font-medium text-foreground/80 transition-colors hover:bg-secondary/10 hover:text-primary focus:bg-secondary/10 focus:text-primary focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-secondary/10 data-[state=open]:bg-secondary/10"
                     >
                       {item.name}
                     </Link>
@@ -69,13 +72,13 @@ export default function Header() {
           </NavigationMenu>
 
           {/* CTA Buttons */}
-          <div className="hidden md:flex items-center space-x-2">
+          <div className="hidden md:flex items-center space-x-4">
             <ThemeToggle />
-            <Button variant="outline" asChild>
+            <Button variant="outline" className="border-primary/20 hover:border-primary hover:bg-primary/5 hover:text-primary font-serif" asChild>
               <Link href="/reservations">Book Table</Link>
             </Button>
-            <Button className="restaurant-primary" asChild>
-              <Link href="/order">Order Now</Link>
+            <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-serif shadow-md hover:shadow-lg transition-all" asChild>
+              <Link href="/order">Order Online</Link>
             </Button>
           </div>
 
@@ -91,13 +94,16 @@ export default function Header() {
               <div className="flex flex-col space-y-4 mt-8">
                 {/* Mobile Logo */}
                 <div className="flex items-center justify-center pb-4 border-b">
-                  <Image
-                    src="/assets/logo.svg"
-                    alt={`${RESTAURANT_INFO.name} Logo`}
-                    width={60}
-                    height={60}
-                    className="w-15 h-15 dark:invert"
-                  />
+                  <Link href="/" onClick={() => setIsOpen(false)}>
+                    <Image
+                      src="/assets/logo.svg"
+                      alt={`${RESTAURANT_INFO.name} Logo`}
+                      width={140}
+                      height={40}
+                      className="w-auto h-12 dark:invert"
+                      priority
+                    />
+                  </Link>
                 </div>
 
                 {/* Mobile Navigation Links */}

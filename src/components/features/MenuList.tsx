@@ -1,11 +1,18 @@
 'use client';
 
 import { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { Star, Leaf, Wheat, Filter } from 'lucide-react';
 import { MenuItem, MenuCategory } from '@/lib/types';
+import { cn } from '@/lib/utils';
 
 interface MenuListProps {
   categories: MenuCategory[];
@@ -20,53 +27,59 @@ interface MenuItemCardProps {
 
 function MenuItemCard({ item, showAddToCart = false, onAddToCart }: MenuItemCardProps) {
   return (
-    <Card className="restaurant-card h-full">
-      <CardHeader>
-        <div className="flex justify-between items-start">
-          <CardTitle className="text-lg">{item.name}</CardTitle>
-          <Badge variant="secondary" className="text-lg font-semibold">
-            £{item.price.toFixed(2)}
-          </Badge>
-        </div>
-        <div className="flex flex-wrap gap-2 mt-2">
-          {'spiceLevel' in item && item.spiceLevel && (
-            <div className="flex items-center space-x-1">
-              <Star className="h-4 w-4 text-yellow-500 fill-current" />
-              <span className="text-sm capitalize">{item.spiceLevel}</span>
-            </div>
-          )}
-          {item.isVegetarian && (
-            <Badge variant="outline" className="text-green-600 border-green-600">
-              <Leaf className="h-3 w-3 mr-1" />
-              Vegetarian
-            </Badge>
-          )}
-          {item.isVegan && (
-            <Badge variant="outline" className="text-green-700 border-green-700">
-              <Leaf className="h-3 w-3 mr-1" />
-              Vegan
-            </Badge>
-          )}
-          {item.isGlutenFree && (
-            <Badge variant="outline" className="text-blue-600 border-blue-600">
-              <Wheat className="h-3 w-3 mr-1" />
-              Gluten Free
-            </Badge>
-          )}
-        </div>
-      </CardHeader>
-      <CardContent>
-        <CardDescription className="text-base mb-4">{item.description}</CardDescription>
-        {showAddToCart && (
-          <Button 
-            onClick={() => onAddToCart?.(item)}
-            className="w-full restaurant-primary"
-          >
-            Add to Cart
-          </Button>
+    <div className="group relative p-6 rounded-xl bg-card hover:bg-accent/5 border border-border/40 hover:border-primary/20 transition-all duration-300 hover:shadow-md">
+      <div className="flex justify-between items-start mb-2">
+        <h3 className="text-xl font-serif font-bold text-foreground group-hover:text-primary transition-colors">
+          {item.name}
+        </h3>
+        <span className="text-lg font-bold text-primary ml-4 font-serif">
+          £{item.price.toFixed(2)}
+        </span>
+      </div>
+      
+      <p className="text-muted-foreground mb-4 leading-relaxed font-light">
+        {item.description}
+      </p>
+      
+      <div className="flex flex-wrap gap-2 items-center min-h-[24px]">
+        {'spiceLevel' in item && item.spiceLevel && (
+          <div className="flex items-center gap-0.5 mr-2" title={`Spice Level: ${item.spiceLevel}`}>
+            {Array.from({ length: item.spiceLevel === 'hot' ? 3 : item.spiceLevel === 'medium' ? 2 : 1 }).map((_, i) => (
+              <Star key={i} className="h-4 w-4 text-primary fill-primary" />
+            ))}
+          </div>
         )}
-      </CardContent>
-    </Card>
+        
+        {item.isVegetarian && (
+          <Badge variant="outline" className="border-green-600/30 text-green-700 bg-green-50/50 dark:bg-green-900/10 hover:bg-green-100 dark:hover:bg-green-900/20 gap-1">
+            <Leaf className="h-3 w-3" />
+            Veg
+          </Badge>
+        )}
+        {item.isVegan && (
+          <Badge variant="outline" className="border-green-700/30 text-green-800 bg-green-100/50 dark:bg-green-900/20 hover:bg-green-200 dark:hover:bg-green-900/30 gap-1">
+            <Leaf className="h-3 w-3" />
+            Vegan
+          </Badge>
+        )}
+        {item.isGlutenFree && (
+          <Badge variant="outline" className="border-blue-600/30 text-blue-700 bg-blue-50/50 dark:bg-blue-900/10 hover:bg-blue-100 dark:hover:bg-blue-900/20 gap-1">
+            <Wheat className="h-3 w-3" />
+            GF
+          </Badge>
+        )}
+      </div>
+
+      {showAddToCart && (
+        <Button 
+          onClick={() => onAddToCart?.(item)}
+          className="mt-4 w-full"
+          variant="secondary"
+        >
+          Add to Order
+        </Button>
+      )}
+    </div>
   );
 }
 
@@ -110,102 +123,114 @@ export default function MenuList({ categories, showFilters = false }: MenuListPr
   };
 
   return (
-    <div>
+    <div className="space-y-12">
       {/* Filters */}
       {showFilters && (
-        <div className="mb-8 p-6 bg-card rounded-lg border">
-          <div className="flex items-center gap-2 mb-4">
+        <div className="bg-card/50 backdrop-blur-sm border rounded-2xl p-6 md:p-8 shadow-sm">
+          <div className="flex items-center gap-2 mb-6 text-primary">
             <Filter className="h-5 w-5" />
-            <h3 className="text-lg font-semibold">Filter Menu</h3>
+            <h3 className="text-lg font-serif font-semibold">Refine Your Selection</h3>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Category Filter */}
-            <div>
-              <label className="block text-sm font-medium mb-2">Category</label>
-              <select 
-                value={selectedCategory} 
-                onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full p-2 border rounded-md bg-background"
-              >
-                <option value="all">All Categories</option>
-                {categories.map(category => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-                ))}
-              </select>
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-muted-foreground">Category</label>
+              <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                <SelectTrigger>
+                  <SelectValue placeholder="All Categories" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Categories</SelectItem>
+                  {categories.map(category => (
+                    <SelectItem key={category.id} value={category.id}>
+                      {category.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             
             {/* Dietary Filter */}
-            <div>
-              <label className="block text-sm font-medium mb-2">Dietary</label>
-              <select 
-                value={dietaryFilter} 
-                onChange={(e) => setDietaryFilter(e.target.value)}
-                className="w-full p-2 border rounded-md bg-background"
-              >
-                <option value="all">All Options</option>
-                <option value="vegetarian">Vegetarian</option>
-                <option value="vegan">Vegan</option>
-                <option value="gluten-free">Gluten Free</option>
-              </select>
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-muted-foreground">Dietary Preferences</label>
+              <Select value={dietaryFilter} onValueChange={setDietaryFilter}>
+                <SelectTrigger>
+                  <SelectValue placeholder="All Options" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Options</SelectItem>
+                  <SelectItem value="vegetarian">Vegetarian</SelectItem>
+                  <SelectItem value="vegan">Vegan</SelectItem>
+                  <SelectItem value="gluten-free">Gluten Free</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
             
             {/* Spice Filter */}
-            <div>
-              <label className="block text-sm font-medium mb-2">Spice Level</label>
-              <select 
-                value={spiceFilter} 
-                onChange={(e) => setSpiceFilter(e.target.value)}
-                className="w-full p-2 border rounded-md bg-background"
-              >
-                <option value="all">All Levels</option>
-                <option value="mild">Mild</option>
-                <option value="medium">Medium</option>
-                <option value="hot">Hot</option>
-                <option value="very-hot">Very Hot</option>
-              </select>
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-muted-foreground">Spice Level</label>
+              <Select value={spiceFilter} onValueChange={setSpiceFilter}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Any Spice Level" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Any Spice Level</SelectItem>
+                  <SelectItem value="mild">Mild</SelectItem>
+                  <SelectItem value="medium">Medium</SelectItem>
+                  <SelectItem value="hot">Hot</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
         </div>
       )}
 
-      {/* Menu Categories */}
-      {filteredCategories.map((category, categoryIndex) => (
-        <div key={category.id} className={categoryIndex > 0 ? 'mt-16' : ''}>
-          {/* Category Header */}
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              {category.name}
-            </h2>
-            {category.description && (
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                {category.description}
-              </p>
-            )}
+      {/* Menu Items */}
+      <div className="space-y-16">
+        {filteredCategories.length > 0 ? (
+          filteredCategories.map(category => (
+            <div key={category.id} id={category.id} className="scroll-mt-24">
+              <div className="flex items-center gap-4 mb-8">
+                <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground">
+                  {category.name}
+                </h2>
+                <div className="h-px bg-border flex-grow opacity-50" />
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                {category.items.map(item => (
+                  <MenuItemCard 
+                    key={item.id} 
+                    item={item} 
+                    showAddToCart={false}
+                    onAddToCart={handleAddToCart}
+                  />
+                ))}
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="text-center py-20">
+            <h3 className="text-2xl font-serif font-medium text-muted-foreground mb-4">
+              No items found
+            </h3>
+            <p className="text-muted-foreground">
+              Try adjusting your filters to see more options.
+            </p>
+            <Button 
+              variant="outline" 
+              onClick={() => {
+                setSelectedCategory('all');
+                setDietaryFilter('all');
+                setSpiceFilter('all');
+              }}
+              className="mt-6"
+            >
+              Clear Filters
+            </Button>
           </div>
-
-          {/* Menu Items Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {category.items.map((item) => (
-              <MenuItemCard 
-                key={item.id} 
-                item={item} 
-                showAddToCart={showFilters}
-                onAddToCart={handleAddToCart}
-              />
-            ))}
-          </div>
-        </div>
-      ))}
-      
-      {filteredCategories.length === 0 && (
-        <div className="text-center py-12">
-          <p className="text-lg text-muted-foreground">
-            No items match your current filters. Try adjusting your selection.
-          </p>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Plus, Minus, ShoppingCart, Leaf, Wheat, Flame } from 'lucide-react';
 import { MenuItem } from '@/lib/types';
@@ -13,20 +14,25 @@ import Image from 'next/image';
 
 interface MenuItemCardProps {
   item: MenuItem;
-  onAddToCart?: (item: MenuItem, quantity: number, specialInstructions?: string) => void;
+  onAddToCart?: (item: MenuItem, quantity: number, specialInstructions?: string, selectedOption?: string) => void;
   showAddToCart?: boolean;
 }
 
 export default function MenuItemCard({ item, onAddToCart, showAddToCart = false }: MenuItemCardProps) {
   const [quantity, setQuantity] = useState(1);
   const [specialInstructions, setSpecialInstructions] = useState('');
+  const [selectedOption, setSelectedOption] = useState<string | undefined>(undefined);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleAddToCart = () => {
     if (onAddToCart) {
-      onAddToCart(item, quantity, specialInstructions || undefined);
+      if (item.options && !selectedOption) {
+        return; // Prevent adding without selection
+      }
+      onAddToCart(item, quantity, specialInstructions || undefined, selectedOption);
       setQuantity(1);
       setSpecialInstructions('');
+      setSelectedOption(undefined);
       setIsDialogOpen(false);
     }
   };
@@ -81,29 +87,24 @@ export default function MenuItemCard({ item, onAddToCart, showAddToCart = false 
         
         <div className="flex flex-wrap gap-2 mt-2">
           {item.isVegetarian && (
-            <Badge variant="secondary" className="text-xs">
-              <Leaf className="h-3 w-3 mr-1" />
-              Vegetarian
+            <Badge variant="outline" className="border-green-600/30 text-green-700 bg-green-50/50 dark:bg-green-900/10 hover:bg-green-100 dark:hover:bg-green-900/20 gap-1 text-xs">
+              <Leaf className="h-3 w-3" />
+              Veg
             </Badge>
           )}
           {item.isVegan && (
-            <Badge variant="secondary" className="text-xs">
-              <Leaf className="h-3 w-3 mr-1" />
+            <Badge variant="outline" className="border-green-700/30 text-green-800 bg-green-100/50 dark:bg-green-900/20 hover:bg-green-200 dark:hover:bg-green-900/30 gap-1 text-xs">
+              <Leaf className="h-3 w-3" />
               Vegan
             </Badge>
           )}
-          {item.isGlutenFree && (
-            <Badge variant="secondary" className="text-xs">
-              <Wheat className="h-3 w-3 mr-1" />
-              Gluten Free
+          {'isGlutenFree' in item && item.isGlutenFree && (
+            <Badge variant="outline" className="border-blue-600/30 text-blue-700 bg-blue-50/50 dark:bg-blue-900/10 hover:bg-blue-100 dark:hover:bg-blue-900/20 gap-1 text-xs">
+              <Wheat className="h-3 w-3" />
+              GF
             </Badge>
           )}
-          {'spiceLevel' in item && item.spiceLevel && (
-            <Badge variant="outline" className="text-xs">
-              {getSpiceIcon(item.spiceLevel)}
-              <span className="ml-1 capitalize">{item.spiceLevel}</span>
-            </Badge>
-          )}
+          {'spiceLevel' in item && item.spiceLevel && getSpiceIcon(item.spiceLevel)}
         </div>
       </CardHeader>
       
@@ -116,7 +117,7 @@ export default function MenuItemCard({ item, onAddToCart, showAddToCart = false 
                 Add to Cart
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-md">
+            <DialogContent className="sm:max-w-md max-h-[90vh] overflow-y-auto">
               <DialogHeader>
                 <DialogTitle>{item.name}</DialogTitle>
                 <DialogDescription>
@@ -126,20 +127,21 @@ export default function MenuItemCard({ item, onAddToCart, showAddToCart = false 
               
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label>Quantity</Label>
+                  <Label htmlFor="quantity">Quantity</Label>
                   <div className="flex items-center gap-3">
                     <Button
-                      size="sm"
                       variant="outline"
+                      size="icon"
+                      className="h-8 w-8"
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                      disabled={quantity <= 1}
                     >
                       <Minus className="h-4 w-4" />
                     </Button>
-                    <span className="w-12 text-center font-medium">{quantity}</span>
+                    <span className="w-8 text-center text-lg font-medium">{quantity}</span>
                     <Button
-                      size="sm"
                       variant="outline"
+                      size="icon"
+                      className="h-8 w-8"
                       onClick={() => setQuantity(quantity + 1)}
                     >
                       <Plus className="h-4 w-4" />
@@ -147,8 +149,29 @@ export default function MenuItemCard({ item, onAddToCart, showAddToCart = false 
                   </div>
                 </div>
                 
-                <div className="space-y-2">
-                  <Label htmlFor="instructions">Special Instructions (Optional)</Label>
+                {item.options && (
+                  <div className="space-y-2">
+                    <Label htmlFor="option">Select Option</Label>
+                    <Select
+                      value={selectedOption}
+                      onValueChange={setSelectedOption}
+                    >
+                      <SelectTrigger id="option">
+                        <SelectValue placeholder="Select an option" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {item.options?.map((option) => (
+                          <SelectItem key={option} value={option}>
+                            {option}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                )}
+
+                <div className="grid gap-2">
+                  <Label htmlFor="instructions">Special Instructions</Label>
                   <Input
                     id="instructions"
                     value={specialInstructions}
@@ -157,13 +180,17 @@ export default function MenuItemCard({ item, onAddToCart, showAddToCart = false 
                   />
                 </div>
                 
-                <div className="flex items-center justify-between pt-4 border-t">
-                  <div className="text-lg font-bold">
+                <div className="flex items-center justify-between pt-4 border-t gap-4">
+                  <div className="text-lg font-bold whitespace-nowrap">
                     Total: £{(item.price * quantity).toFixed(2)}
                   </div>
-                  <Button onClick={handleAddToCart} className="restaurant-primary">
-                    <ShoppingCart className="h-4 w-4 mr-2" />
-                    Add to Cart
+                  <Button 
+                    onClick={handleAddToCart}
+                    disabled={!!item.options && !selectedOption}
+                    className="w-auto px-6 restaurant-primary"
+                    size="sm"
+                  >
+                    Add to Order
                   </Button>
                 </div>
               </div>

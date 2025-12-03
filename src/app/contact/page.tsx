@@ -38,215 +38,156 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="restaurant-gradient text-white py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Contact Us</h1>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Visit us in the heart of Blackheath or get in touch for reservations and inquiries
+      <section className="relative h-[40vh] flex items-center justify-center overflow-hidden">
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 z-0"
+          style={{
+            backgroundImage: 'url("https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2000&auto=format&fit=crop")',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        >
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" />
+        </div>
+        
+        <div className="container relative z-10 px-4 text-center">
+          <h1 className="font-serif text-5xl md:text-7xl font-bold text-white mb-4 animate-fade-in-up">
+            Contact Us
+          </h1>
+          <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto font-light animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+            We'd love to hear from you
           </p>
         </div>
       </section>
 
       {/* Contact Information */}
-      <section className="py-16">
+      <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 mb-16">
             {/* Contact Details */}
-            <div className="space-y-6">
-              <Card className="restaurant-card">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Phone className="h-5 w-5" />
-                    Get in Touch
-                  </CardTitle>
-                  <CardDescription>
-                    Contact us for reservations, inquiries, or special requests
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex items-center gap-3">
+            <div className="space-y-8">
+              <div className="bg-card border rounded-xl p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-3 bg-primary/10 rounded-full text-primary">
+                    <Phone className="h-6 w-6" />
+                  </div>
+                  <h2 className="text-2xl font-serif font-bold">Get in Touch</h2>
+                </div>
+                
+                <div className="space-y-6">
+                  <div className="flex items-center gap-4">
                     <Phone className="h-5 w-5 text-primary" />
                     <div>
-                      <p className="font-medium">Phone</p>
+                      <p className="font-medium mb-1">Phone</p>
                       <a 
                         href={`tel:${RESTAURANT_INFO.phone}`}
-                        className="text-primary hover:underline"
+                        className="text-muted-foreground hover:text-primary transition-colors"
                       >
                         {RESTAURANT_INFO.phone}
                       </a>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3">
+                  
+                  <div className="flex items-center gap-4">
                     <Mail className="h-5 w-5 text-primary" />
                     <div>
-                      <p className="font-medium">Email</p>
+                      <p className="font-medium mb-1">Email</p>
                       <a 
                         href={`mailto:${RESTAURANT_INFO.email}`}
-                        className="text-primary hover:underline"
+                        className="text-muted-foreground hover:text-primary transition-colors"
                       >
                         {RESTAURANT_INFO.email}
                       </a>
                     </div>
                   </div>
-                  <div className="flex items-start gap-3">
+                  
+                  <div className="flex items-start gap-4">
                     <MapPin className="h-5 w-5 text-primary mt-1" />
                     <div>
-                      <p className="font-medium">Address</p>
+                      <p className="font-medium mb-1">Address</p>
                       <p className="text-muted-foreground">{RESTAURANT_INFO.address}</p>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
 
-              <Card className="restaurant-card">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Clock className="h-5 w-5" />
-                    Opening Hours
-                  </CardTitle>
-                  <CardDescription>
-                    We&apos;re open 7 days a week to serve you
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2">
-                    {formatOpeningHours().map((item, index) => (
-                      <div key={index} className="flex justify-between items-center py-1">
-                        <span className="font-medium">{item.day}</span>
-                        <span className="text-muted-foreground">{item.hours}</span>
-                      </div>
-                    ))}
+              <div className="bg-card border rounded-xl p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-3 bg-primary/10 rounded-full text-primary">
+                    <Navigation className="h-6 w-6" />
                   </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Map */}
-            <div className="space-y-6">
-              <div className="w-full h-[400px] rounded-lg overflow-hidden">
-                <iframe 
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2485.964845763219!2d0.0029241767457712483!3d51.4588018718023!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d8a91281a82a95%3A0xc83149a45b2c37b6!2sThe%20Fusion%20-%20Nepalese%20and%20Indian%20Restaurant!5e0!3m2!1sen!2suk!4v1756892818684!5m2!1sen!2suk"
-                  width="100%" 
-                  height="100%" 
-                  style={{border: 0}} 
-                  allowFullScreen 
-                  loading="lazy" 
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="The Fusion Restaurant Location"
-                />
-              </div>
-              
-              <div className="flex gap-4">
-                <Button asChild className="flex-1">
-                  <a
-                    href={`https://www.google.com/maps/dir/?api=1&destination=${RESTAURANT_INFO.coordinates.lat},${RESTAURANT_INFO.coordinates.lng}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Navigation className="h-4 w-4 mr-2" />
-                    Get Directions
-                  </a>
-                </Button>
-                <Button variant="outline" asChild className="flex-1">
-                  <a
-                    href={`https://www.google.com/maps/search/?api=1&query=${RESTAURANT_INFO.coordinates.lat},${RESTAURANT_INFO.coordinates.lng}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <MapPin className="h-4 w-4 mr-2" />
-                    View on Maps
-                  </a>
-                </Button>
+                  <h2 className="text-2xl font-serif font-bold">How to Find Us</h2>
+                </div>
+                
+                <div className="space-y-6">
+                  <div className="flex items-start gap-4">
+                    <Train className="h-5 w-5 text-primary mt-1" />
+                    <div>
+                      <p className="font-medium mb-1">By Train</p>
+                      <p className="text-muted-foreground">
+                        We are a 10-minute walk from Blackheath Station and Lewisham Station.
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-4">
+                    <Car className="h-5 w-5 text-primary mt-1" />
+                    <div>
+                      <p className="font-medium mb-1">By Car</p>
+                      <p className="text-muted-foreground">
+                        Street parking is available on Lee High Road and surrounding streets. 
+                        Please check local parking restrictions.
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Getting Here Section */}
-      <section className="py-16 bg-muted/50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Getting Here</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              We&apos;re conveniently located in Blackheath with excellent transport links
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Card className="restaurant-card">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Car className="h-5 w-5" />
-                  By Car
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <p className="text-muted-foreground">
-                  We&apos;re located on Lee High Road (A205) in Blackheath, with easy access from:
-                </p>
-                <ul className="space-y-1 text-sm text-muted-foreground">
-                  <li>• A2 via Blackheath Village</li>
-                  <li>• A20 via Lewisham</li>
-                  <li>• South Circular (A205)</li>
-                </ul>
-                <p className="text-sm text-muted-foreground">
-                  <strong>Parking:</strong> Street parking available on Lee High Road and surrounding streets.
-                </p>
-              </CardContent>
-            </Card>
+            {/* Opening Hours */}
+            <div className="bg-card/50 backdrop-blur-sm border rounded-2xl p-6 md:p-8 shadow-lg h-fit">
+              <div className="flex items-center gap-3 mb-8">
+                <div className="p-3 bg-primary/10 rounded-full text-primary">
+                  <Clock className="h-6 w-6" />
+                </div>
+                <h2 className="text-2xl font-serif font-bold">Opening Hours</h2>
+              </div>
 
-            <Card className="restaurant-card">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Train className="h-5 w-5" />
-                  By Public Transport
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <p className="text-muted-foreground">
-                  Excellent transport connections:
-                </p>
-                <ul className="space-y-1 text-sm text-muted-foreground">
-                  <li>• <strong>Blackheath Station:</strong> 5-minute walk (National Rail)</li>
-                  <li>• <strong>Lee Station:</strong> 3-minute walk (National Rail)</li>
-                  <li>• <strong>Bus routes:</strong> 54, 89, 108, 202, 261, 273</li>
-                  <li>• <strong>DLR:</strong> Lewisham (10 minutes by bus)</li>
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
+              <div className="space-y-4">
+                {formatOpeningHours().map((item) => (
+                  <div 
+                    key={item.day}
+                    className="flex justify-between items-center py-3 border-b border-border/50 last:border-0"
+                  >
+                    <span className="font-medium">{item.day}</span>
+                    <span className="text-muted-foreground font-light">{item.hours}</span>
+                  </div>
+                ))}
+              </div>
 
-      {/* Call to Action */}
-      <section className="py-16">
-        <div className="container mx-auto px-4 text-center">
-          <div className="max-w-2xl mx-auto">
-            <h2 className="text-3xl font-bold mb-6">Ready to Visit?</h2>
-            <p className="text-lg text-muted-foreground mb-8">
-              Book a table or place an order for collection. We look forward to serving you!
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="restaurant-primary bg-primary text-primary-foreground hover:bg-primary/90" asChild>
-                <a href="/reservations">
-                  Book a Table
-                </a>
-              </Button>
-              <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white" asChild>
-                <a href="/order">
-                  Order Online
-                </a>
-              </Button>
-              <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white" asChild>
-                <a href={`tel:${RESTAURANT_INFO.phone}`}>
-                  <Phone className="h-4 w-4 mr-2" />
-                  Call Now
-                </a>
-              </Button>
+              <div className="mt-8 p-4 bg-primary/5 rounded-lg border border-primary/10">
+                <p className="text-center text-sm text-muted-foreground">
+                  Kitchen closes 30 minutes before restaurant closing time.
+                </p>
+              </div>
             </div>
+          </div>
+
+          {/* Map Section */}
+          <div className="rounded-2xl overflow-hidden shadow-lg border h-[400px] md:h-[500px] relative">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2486.054980282954!2d0.003339176913645646!3d51.45708097180169!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d8a85793946c6f%3A0x31240b63889191!2s221%20Lee%20High%20Rd%2C%20London%20SE13%205PQ!5e0!3m2!1sen!2suk!4v1709684123456!5m2!1sen!2suk"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="grayscale hover:grayscale-0 transition-all duration-500"
+            ></iframe>
           </div>
         </div>
       </section>
